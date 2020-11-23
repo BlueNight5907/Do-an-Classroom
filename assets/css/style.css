@@ -32,8 +32,6 @@ div.container {
 
 section.main-header {
     display: flex;
-    padding-top: 10px;
-    box-shadow: 2px 2px 3px rgba(114, 111, 111, 0.5)
 }
 
 div.to-do {
@@ -283,9 +281,8 @@ div.form-help {
 
 /* classview css */
 .main-header {
-    box-shadow: 2px 2px rgb(245, 241, 241);
-    border: 1px solid #d9dadb;
-    border-radius: 5px;
+    box-shadow: 2px 2px rgb(248, 241, 241);
+    border-bottom: 1px solid #d9dadb;
     position: relative;
     overflow: hidden;
     line-height: inherit;
@@ -479,3 +476,87 @@ form.login-form,form.register-form{
     margin-bottom: 2rem;
     text-align: center;
 }
+.navbar-nav .nav-item{
+    padding: 5px 0;
+
+}
+.navbar-collapse{
+    align-items: center;
+}
+.navbar-nav .nav-item .nav-link{
+    text-align: center;
+}
+#btn-sidebar{
+    width:56px!important;
+    height: 42px;
+    border: #e3e3e3 1px solid;
+    border-radius: 3px;
+}
+.btn-custom{
+    width:56px!important;
+    height: 42px;
+    border: #e3e3e3 1px solid;
+}
+.user-avatar{
+    background-color: #f8f9fa;
+    width: 60px;
+    height: 60px;
+    border: #d9dadb 0 solid;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.user-avatar:hover{
+    background-color: #f3f0f0;
+}
+.user-avatar img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.create-class-form{
+    display: none;
+    z-index: 3;
+    width:100vw;
+    height: 100vh;
+    position: fixed;
+    top:0px;
+    left: 0px;
+    background-color: rgba(0,0,0,0.5);
+}
+.attend-class{
+    display: none;
+    width: 100vw;
+    height: 130vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    background-color: #fbfeff;
+}
+.attend-class .container{
+    height: 100vh;
+    align-items: center;
+}
+.join-class-header{
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    background-color: #def6fa;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.box.jumbotron{
+    margin: 0 auto;
+    width: 50rem;
+    padding: 2.5rem 2rem;
+}
+.account-infor h5 .account-infor p{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+

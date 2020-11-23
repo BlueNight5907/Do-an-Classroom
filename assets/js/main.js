@@ -27,9 +27,15 @@ $('#btn-header').click( (e) => {
         });
     }, false);
 })();
-$(function () {
-    $('#datetimepicker1').datetimepicker();
-});
-function CheckPhoneNumber(event){
-    return event.charCode >= 48 && event.charCode <= 57;
+function Open_attend_class(){
+    $(".attend-class").show("slow");
+}
+function Close_attend_class(){
+    $(".attend-class").hide("slow");
+}
+function Open_create_class(){
+    $(".create-class-form").show("slow");
+}
+function Close_create_class(){
+    $(".create-class-form").hide("slow");
 }
