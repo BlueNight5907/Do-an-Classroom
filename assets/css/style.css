@@ -1,0 +1,516 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+ul li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+:root {
+	--primary-color: #ee4d2d;
+	--white-color: #fff;
+	--black-color: #000;
+	--text-color: #333;
+	--star-gold-color: #ffce3e;
+	--border-color: #dbdbdb;
+}
+
+
+html {
+	font-family: Arial, sans-serif;
+	box-sizing: border-box;
+}
+.col-1 {
+    width: 6.33%;
+    margin: 0 1%;
+    float: left;
+}
+.col-2 {
+    width: 14.66666667%;
+    margin: 0 1%;
+    float: left;
+}
+.col-3 {
+    width: 23%;
+    margin: 0 1%;
+    float: left;
+}
+.col-4 {
+    width: 31.33333333%;
+    margin: 0 1%;
+    float: left;
+}
+/* .col-5 {
+    width: 39.66666667%;
+    margin: 0 1%;
+    float: left;
+}
+.col-6 {
+    width: 48%;
+    margin: 0 1%;
+    float: left;
+}
+.col-7 {
+    width: 56.33333333%;
+    margin: 0 1%;
+    float: left;
+}
+.col-8 {
+    width: 64.66666667%;
+    margin: 0 1%;
+    float: left;
+}
+.col-9 {
+    width: 73%;
+    margin: 0 1%;
+    float: left;
+}
+.col-10 {
+    width: 81.33333333%;
+    margin: 0 1%;
+    float: left;
+}
+.col-11 {
+    width: 89.66666667%;
+    margin: 0 1%;
+    float: left;
+}
+.col-12 {
+    width: 98%;
+    margin: 0 1%;
+    float: left;
+} */
+div.container {
+    width: 85%;
+    margin: 0 auto;
+}
+
+section.main-header {
+    display: flex;
+    padding-top: 30px;
+    box-shadow: 2px 2px 3px rgba(114, 111, 111, 0.5)#
+}
+
+div.to-do {
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 20px;
+    margin: 0 3px;
+}
+div.calendar {
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 20px;
+    margin: 0 3px;
+}
+div.to-do:hover, div.calendar:hover {
+    border-radius: 3px;
+    background-color: rgb(245, 243, 243);
+}
+section.main-class {
+    display: flex;
+    padding-top: 30px;
+}
+
+div.class-room {
+    border: 1px solid rgb(194, 194, 243);
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+div.room-top {
+    position: relative;
+    background-image: url(https://gstatic.com/classroom/themes/img_reachout.jpg);
+    padding: 10px;
+    line-height: 1.6;
+}
+h2.class-name {
+    width: 85%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--white-color);
+}
+.teacher-name, .teacher {
+    color: var(--white-color);
+}
+a.room-info:hover {
+    text-decoration: underline;
+    padding: 5px 0;
+}
+div.task {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 15px;
+    color: var(--white-color);
+}
+
+div.task i {
+    font-size: 25px;
+}
+
+div.task:hover {
+    border-radius: 50%;
+    background-color: rgb(199, 196, 196);
+    cursor: pointer;
+}
+
+div.active {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 36px;
+    color: var(--text-color);
+    border: 1px solid rgb(104, 87, 87);
+    border-radius: 3px;
+    background-color: white;
+}
+
+ul.option li {
+    font-size: 20px;
+    padding: 5px 15px;
+}
+
+ul.option li:hover {
+    background-color: rgb(233, 230, 230);
+}
+
+div.room-mid {
+    width: 100%;
+    height: 140px;
+    position: relative;
+    border-bottom: 1px solid rgb(194, 194, 243);
+}
+
+img.avatar {
+    position: absolute;
+    right: 20px;
+    top: -40px;
+    border-radius: 50%;
+}
+
+div.room-bot {
+    width: 100%;
+    height: 57px;
+    position: relative;
+}
+
+div.document {
+    display: inline;
+    font-size: 25px;
+    position: absolute;
+    right: 20px;
+    top: 15px;
+}
+div.document span {
+    padding: 10px 10px;
+}
+
+div.document span:hover {
+    border-radius: 50%;
+    background-color: rgb(199, 196, 196);
+    cursor: pointer;
+}
+footer.footer {
+    font-size:25px;
+    position: fixed;
+    bottom: 10px;
+    left: 25px;
+}
+/* style of modal */
+div.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: flex;
+}
+div.modal-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+}
+
+div.modal-body {
+    background-color:white; 
+    margin: auto;
+    z-index: 1;
+    border-radius: 5px;
+}
+
+div.auth-form {
+    width: 500px;
+}
+div.form-container {
+    padding: 32px 32px;
+}
+
+div.form-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+h3.form-heading {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--text-color);
+}
+
+span.form-move-on-btn {
+    color: var(--primary-color);
+    cursor: pointer;
+}
+
+input.form-input {
+    width: 100%;
+    height: 40px;
+    margin-top: 20px;
+    border: 1px solid var(--border-color);
+    padding: 0 12px;
+    font-size: 1rem;
+    border-radius:2px;
+    outline: none;
+}
+
+input.form-input:focus {
+    border: 1px solid #888;
+}
+p.form-notice {
+    padding: 10px 10px;
+    color: var(--text-color);
+    font-size: 0.9rem;
+}
+div.user-infos {
+    display: flex;
+}
+input.user-infor {
+    width: 49%;
+    margin-left: 1px;
+}
+.auth-form-controls {
+    margin-top: 70px;
+    display: flex;
+    justify-content: flex-end;
+}
+.btn {
+    min-width: 142px;
+    height:36px;
+    border: none;
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+}
+.btn:hover {
+    background-color: rgba(0,0,0,0.05);
+}
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+
+.btn-primary:hover {
+    background-color: #f16a4f;
+} 
+.btn.form-controls-back {
+    margin-right: 10px;
+}
+
+div.auth-form-register {
+    display: block;
+}
+/* Login form */
+
+div.form-help {
+    display: flex;
+    justify-content: flex-end;
+}
+.form-help-link {
+    margin: 10px 0;
+}
+.form-help-forgot {
+    margin-right: 10px;
+}
+
+.auth-form-login {
+    display: none;
+}
+
+/* classview css */
+.main-header {
+    box-shadow: 2px 2px rgb(245, 241, 241);
+    border: 1px solid #d9dadb;
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+    line-height: inherit;
+}
+
+.main-header-info {
+    width: 100%;
+    height: 200px;
+    background-image: url(https://gstatic.com/classroom/themes/img_reachout.jpg);
+    padding: 15px;
+    color: var(--white-color);
+}
+.btn-header {
+    position: absolute;
+    top: 145px;
+    margin: auto;
+}
+.btn-header i {
+    font-size: 2rem;
+    color: var(--white-color);
+    padding: 10px;
+    border-radius: 50%;
+}
+.btn-header i:hover {
+    background-color:  rgb(177, 177, 177);
+}
+.more-info-of-class {
+    display: none;
+    padding: 10px 15px 0 15px;
+    line-height: 15px;
+}
+.row {
+    margin-top: 25px;
+}
+.notices-important { 
+    border: 1px solid #d9dadb;
+    margin-right: 25px;
+    padding:  25px;
+    border-radius: 5px;
+}
+
+.notices-important h3 {
+    padding-bottom: 10px;
+    font-size: 18px;
+    color: var(--text-color);
+}
+
+.main-notice p {
+    color: #7677a3;
+    font-size:13px;
+}
+/* main content */
+.share-content  {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #d9dadb;
+    border-radius: 5px;
+    box-shadow: 2px 2px #e6e7e7;
+    margin-bottom: 25px;
+}
+.section1 {
+    display: flex;
+    text-align: center;
+    align-items: center;
+}
+.section1 .section-img {
+    padding: 15px;
+
+}
+.section-img img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    
+}
+.content-note {
+    color: var(--text-color);
+    font-size: 15px;
+}
+.section2 {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    padding: 0 15px;
+    margin: 12px 5px;
+    font-size:30px; 
+    border-radius: 50%;
+}
+.section2:hover {
+    background-color: rgb(226, 220, 220);
+    cursor: pointer;
+}
+/* exchange content */
+
+.main-task-content {
+    border: 1px solid #d9dadb;
+    border-radius:5px;
+    box-shadow: 2px 2px #e6e7e7;
+    padding: 8px;
+    overflow: hidden;
+    margin-top: 26px;
+}
+.main1, .main2 {
+    display:flex;
+    align-items: center;
+    padding: 8px;
+    position: relative;
+}
+
+.main1 h4.user-name {
+    font-size: 20px;
+    color:  var(--text-color);
+    padding-left: 8px;
+}
+div.bar-item {
+    position: absolute;
+    top: 0;
+    right: 20px;
+    font-size:20px;
+    padding: 0 15px;
+    border-radius: 50%;
+}
+
+div.bar-item:hover {
+    background-color:  rgb(226, 220, 220);
+    cursor: pointer;
+}
+
+.content-chat {
+    border-bottom: 1px solid #d9dadb;   
+    padding: 10px;    
+    border-bottom: 1px solid #d9dadb;
+}
+.input-content-chat{
+    flex: 1;
+    position: relative;
+    border: 1px solid #d9dadb;
+    border-radius:20px;
+    margin: 10px;
+    overflow: hidden;
+}
+h2.main-heading {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.input-content-chat input {
+    width: 100%;
+    padding: 10px;
+    outline: none;
+}
+div.btn-input {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+}
+@media  only screen and (max-width:768px){
+    div.form-container {
+        width: 400px;   
+    }
+    div.notices {
+        display: none;
+    }
+}

@@ -1,0 +1,282 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+ul li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+
+section.main-header {
+    display: flex;
+    padding-top: 10px;
+}
+
+div.to-do {
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 20px;
+    margin: 0 3px;
+}
+div.calendar {
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 20px;
+    margin: 0 3px;
+}
+div.to-do:hover, div.calendar:hover {
+    border-radius: 3px;
+    background-color: rgb(245, 243, 243);
+}
+section.main-class {
+    display: flex;
+    padding-top: 30px;
+}
+
+div.class-room {
+    border: 1px solid rgb(194, 194, 243);
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+div.room-top {
+    position: relative;
+    background-color: gray;
+    padding: 10px;
+    line-height: 1.6;
+}
+h2.class-name {
+    width: 85%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: white;
+}
+.teacher-name, .teacher {
+    color: white;
+}
+.row{
+	margin: 20px 0;
+}
+a.room-info:hover {
+    text-decoration: underline;
+    padding: 5px 0;
+}
+div.task {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 15px;
+    color: white;
+}
+
+div.task i {
+    font-size: 25px;
+}
+
+div.task:hover {
+    border-radius: 50%;
+    background-color: rgb(199, 196, 196);
+    cursor: pointer;
+}
+
+div.active {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 36px;
+    color: black;
+    border: 1px solid rgb(104, 87, 87);
+    border-radius: 3px;
+    background-color: white;
+}
+
+ul.option li {
+    font-size: 20px;
+    padding: 5px 15px;
+}
+
+ul.option li:hover {
+    background-color: rgb(233, 230, 230);
+}
+
+div.room-mid {
+    width: 100%;
+    height: 140px;
+    position: relative;
+    border-bottom: 1px solid rgb(194, 194, 243);
+}
+
+img.avatar {
+    position: absolute;
+    right: 20px;
+    top: -40px;
+    border-radius: 50%;
+}
+
+div.room-bot {
+    width: 100%;
+    height: 57px;
+    position: relative;
+}
+
+div.document {
+    display: inline;
+    font-size: 25px;
+    position: absolute;
+    right: 20px;
+    top: 15px;
+}
+div.document span {
+    padding: 10px 10px;
+}
+
+div.document span:hover {
+    border-radius: 50%;
+    background-color: rgb(199, 196, 196);
+    cursor: pointer;
+}
+footer.footer {
+    font-size:25px;
+    position: fixed;
+    bottom: 10px;
+    left: 25px;
+}
+/*sidebar vaf header*/
+a:hover, a:visited, a:link, a:active {
+            text-decoration: none!important;
+            -webkit-box-shadow: none!important;
+            box-shadow: none!important;
+}
+header{
+    background-color: gainsboro;
+    border-bottom: black 2px solid;
+    width: 100vw;
+    position: fixed;
+    top:0px;
+    left: 0px;
+}
+.container-fluid{
+    min-height:80vh;
+}
+a{
+    margin:0 10px;
+}
+.footer{
+    margin-top: 20px;
+    height: 100px;
+    background-color: darkgray;
+    bottom: 0px;
+}
+.navbar{
+
+}
+.header-right, .header-left{
+    display: flex;
+    align-items: center;
+}
+.sidebar-classrom{
+    margin: 0;
+    width: 0px;
+    height: 100vh;
+    background-color:  white;
+    -webkit-transition: width 0.5s; /* For Safari 3.1 to 6.0 */
+    transition: width 0.5s ease;
+    position: fixed;
+}
+.sidebar{
+    display: flex;
+    left: 0px;
+    top: 0px;
+    height: 100vh;
+    position: fixed;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+#sidebar-empty{
+    width: 100px;
+    height: 100vh;
+    background-color: rgba(255,255,255,0);
+}
+.addclass-icon span svg{
+    margin-top: 5px;
+}
+.addclass-icon{
+    border-radius: 5px;
+}
+.header-left a img{
+    height: 50px;
+    width: 150px;
+}
+.header-right a img{
+    margin: 0 auto;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+.user-icon{
+    margin:0 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    align-items: center;
+}
+.user-icon a img{
+    margin-top: 5px;
+    margin-right: 10px;
+}
+.user-icon a{
+    margin-left: 5px;
+}
+.user-icon:hover{
+    background-color: gainsboro;
+}
+.addclass-icon:hover{
+    background-color: gainsboro;
+}
+.func{
+    display: flex;
+    text-align: center;
+    visibility: hidden;
+    background-color: #fff8f1;
+    width: 280px;
+    height: 60px;
+    color: black;
+    -webkit-transition: width 0.5s; /* For Safari 3.1 to 6.0 */
+    transition: width 0.5s ease;
+    margin: 10px 0;
+    border-radius: 0px 30px 30px 0px;
+}
+.text{
+    margin: auto 0;
+    text-decoration: none;
+}
+.icon{
+    margin: auto 10px;
+}
+.icon svg{
+    margin: auto 0;
+}
+.sidebar-item{
+    margin: 0;
+}
+.devide{
+    visibility: hidden;
+    height: 2px;
+    width: 0px;
+    background-color: red;
+    -webkit-transition: width 0.5s; /* For Safari 3.1 to 6.0 */
+    transition: width 0.5s ease;
+}
+.abc{
+    width: 25vw;
+    height: 25vh;
+    background-color: black;
+}
