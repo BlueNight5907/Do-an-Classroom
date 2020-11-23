@@ -1,6 +1,5 @@
 
 window.onload = (event) => {
-    const btnHeader = document.getElementById("btn-header");
 
 };
 const moreInfo = document.getElementById("more-info-of-class");

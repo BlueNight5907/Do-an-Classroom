@@ -20,8 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="06607536-d68c-479d-8a70-d405e990f0a7" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/css/style1.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/views/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/views/login.html" afterDir="false" />
@@ -68,7 +68,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1606135244670</updated>
-      <workItem from="1606135249201" duration="1995000" />
+      <workItem from="1606135249201" duration="7742000" />
     </task>
     <servers />
   </component>
@@ -87,9 +87,21 @@
     </option>
   </component>
   <component name="WindowStateProjectService">
+    <state x="271" y="160" key="RollbackChangesDialog" timestamp="1606138470231">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="271" y="160" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1606138470231" />
     <state x="0" y="168" key="SettingsEditor" timestamp="1606135867376">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="0" y="168" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1606135867376" />
+    <state x="72" y="252" key="Vcs.Push.Dialog.v2" timestamp="1606138466818">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="72" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1606138466818" />
+    <state x="143" y="230" width="672" height="678" key="search.everywhere.popup" timestamp="1606138396824">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="143" y="230" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1606138396824" />
   </component>
 </project>

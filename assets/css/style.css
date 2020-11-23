@@ -190,11 +190,10 @@ div.modal-body {
     border-radius: 5px;
 }
 
-div.auth-form {
-    width: 500px;
-}
+
 div.form-container {
     padding: 32px 32px;
+    margin: auto;
 }
 
 div.form-header {
@@ -209,7 +208,7 @@ h3.form-heading {
 }
 
 span.form-move-on-btn {
-    color: var(--primary-color);
+
     cursor: pointer;
 }
 
@@ -240,9 +239,10 @@ input.user-infor {
     margin-left: 1px;
 }
 .auth-form-controls {
-    margin-top: 70px;
+    margin-top: 20px;
     display: flex;
     justify-content: flex-end;
+
 }
 .btn {
     min-width: 142px;
@@ -255,21 +255,13 @@ input.user-infor {
 .btn:hover {
     background-color: rgba(0,0,0,0.05);
 }
-.btn-primary {
-    background-color: var(--primary-color);
-    color: var(--white-color);
-}
-
 .btn-primary:hover {
-    background-color: #f16a4f;
+    background-color: #348dfa;
 } 
 .btn.form-controls-back {
     margin-right: 10px;
 }
 
-div.auth-form-register {
-    display: block;
-}
 /* Login form */
 
 div.form-help {
@@ -457,4 +449,34 @@ div.btn-input {
     div.notices {
         display: none;
     }
+}
+.form-group input.form-input:focus{
+    border: #348dfa solid 2px;
+    border-radius: 3px;
+}
+form.login-form,form.register-form{
+    max-width: 550px;
+    min-width: 430px;
+    padding:5px;
+    border: #c1bebe 3px solid;
+    border-radius: 15px;
+    align-items: center;
+
+}
+.form-container-div{
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    position: absolute;
+}
+.login-form-container,.register-form-container{
+    position: relative;
+    width: 100vw;
+    height: 70vh;
+
+}
+.form-header-text h1{
+    margin-bottom: 2rem;
+    text-align: center;
 }

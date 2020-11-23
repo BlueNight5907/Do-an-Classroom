@@ -14,76 +14,45 @@
     <link rel="stylesheet" href="../assets/css/style.css">
     <title>Home</title>
 </head>
-<body>
-    <div class="modal">
-        <div class="modal-overlay"></div>
-
-        <div class="modal-body">
-            <!-- Register-form -->
-            <div class="auth-form auth-form-register">
-				<div class="form-container">
-					<div class="form-header">
-						<h3 class="form-heading">Đăng ký</h3>
-						<span class="form-move-on-btn">Đăng nhập</span>
-					</div>
-
-					<form action="" class="auth-form-form">
-                        <div class="form-group user-infors">
-                            <input type="text" class="form-input user-infor" placeholder="Họ">
-                            <input type="text" class="form-input user-infor" placeholder="Tên">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-input" placeholder="Nhập email">
-                        </div>
-
-                        <div class="form-group">
-                            <input type="password" class="form-input" placeholder="Nhập password">
-                            <input type="text" class="form-input" placeholder="Nhập lại mật khẩu">
-                        </div>
-                        <p class="form-notice">Sử dụng 8 kí tự trở lên và kết hợp các chữ cái, chữ số và biểu tượng.</p>
-                    </form>
-
-					<div class="auth-form-controls">
-						<button class="btn form-controls-back btn-normal">QUAY LẠI</button>
-						<button class="btn btn-primary">ĐĂNG KÝ</button>
-					</div>
-
-				</div>
-			</div>
+<body class="bg-light">
             <!-- Login-form -->
-            <div class="auth-form auth-form-login">
-				<div class="form-container">
-					<div class="form-header">
-						<h3 class="form-heading">Đăng nhập</h3>
-						<span class="form-move-on-btn">Đăng ký</span>
-					</div>
-
-					<form class="auth-form-form">
-                           <div class="form-group">
+            <div class="login-form-container">
+                <div class="form-container-div">
+                    <div class="form-header-text"><h1 class="mx-auto text-info">Classroom</h1></div>
+                    <form class="login-form bg-white">
+                        <div class="form-container">
+                            <div class="form-header">
+                                <h3 class="form-heading">Đăng nhập</h3>
+                                <a href=""><span class="form-move-on-btn text-primary">Đăng ký</span></a>
+                            </div>
+                            <div class="form-group">
                                 <input type="text" class="form-input" placeholder="Nhập email">
                             </div>
-    
+
                             <div class="form-group">
                                 <input type="password" class="form-input" placeholder="Nhập password">
                             </div>
+                            <div class="auth-form-relations">
+                                <div class="form-help">
+                                    <a href="" class="form-help-link form-help-forgot">Quên mật khẩu</a>
+                                    <a href="" class="form-help-link">Cần trợ giúp?</a>
+                                </div>
+                            </div>
+
+                            <div class="auth-form-controls">
+                                <button class="btn form-controls-back btn-normal">QUAY LẠI</button>
+                                <button class="btn btn-primary">ĐĂNG NHẬP</button>
+                            </div>
+                        </div>
                     </form>
+                </div>
+            </div>
 
-					<div class="auth-form-relations">
-						<div class="form-help">
-							<a href="" class="form-help-link form-help-forgot">Quên mật khẩu</a>
-							<a href="" class="form-help-link">Cần trợ giúp?</a>
-						</div>
-					</div>
 
-					<div class="auth-form-controls">
-						<button class="btn form-controls-back btn-normal">QUAY LẠI</button>
-						<button class="btn btn-primary">ĐĂNG NHẬP</button>
-					</div>
-				</div>
-			</div>
-        </div>
-    </div>
-    <script src="..//assets//javascript/main.js"></script>
+
+
+
+    <script src="..//assets//js//main.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
