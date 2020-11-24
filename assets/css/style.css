@@ -71,7 +71,7 @@ div.room-top {
     padding: 10px;
     line-height: 1.6;
 }
-h3.class-name {
+h4.class-name {
     width: 85%;
     white-space: nowrap;
     overflow: hidden;
@@ -311,8 +311,10 @@ div.form-help {
 }
 .more-info-of-class {
     display: none;
-    padding: 10px 15px 0 15px;
+    padding: 10px 15px 10px 15px;
     line-height: 15px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 .row {
     margin-top: 25px;
@@ -382,24 +384,29 @@ div.form-help {
     border-radius:5px;
     box-shadow: 2px 2px #e6e7e7;
     padding: 8px;
-    overflow: hidden;
     margin-top: 26px;
+    overflow: visible;
 }
 .main1, .main2 {
     display:flex;
     align-items: center;
     padding: 8px;
     position: relative;
+    justify-content: space-between;
 }
 
 .main1 h4.user-name {
     font-size: 20px;
     color:  var(--text-color);
     padding-left: 8px;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
-div.bar-item {
-    position: absolute;
-    top: 0;
+.btn.bar-item {
+    min-width: 40px;
+    top: 5%;
     right: 20px;
     font-size:20px;
     padding: 0 15px;
@@ -415,6 +422,7 @@ div.bar-item:hover {
     border-bottom: 1px solid #d9dadb;   
     padding: 10px;    
     border-bottom: 1px solid #d9dadb;
+    word-wrap: break-word;
 }
 .input-content-chat{
     flex: 1;
@@ -492,8 +500,8 @@ form.login-form,form.register-form{
     border: #e3e3e3 1px solid;
     border-radius: 3px;
 }
-.btn-custom{
-    width:56px!important;
+button.btn-custom{
+    min-width:70px!important;
     height: 42px;
     border: #e3e3e3 1px solid;
 }
@@ -516,7 +524,7 @@ form.login-form,form.register-form{
     height: 50px;
     border-radius: 50%;
 }
-.create-class-form{
+.create-class-form-container{
     display: none;
     z-index: 3;
     width:100vw;
@@ -559,4 +567,52 @@ form.login-form,form.register-form{
     text-overflow: ellipsis;
     display: inline-block;
 }
+/* section partition  */
+.share-something {
+    width: 100%;
+    height: 100px;
+    outline: none;
+}
+.partition-main {
 
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.section-partition {
+    width: 100%;
+    padding: 10px;
+    display:  none;
+}
+div.partition-attach {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 10px 26px;
+}
+.btn.btn-do-task {
+    min-width: 100px;
+    margin-right: 5px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: #348dfa 2px solid;
+    background-color: #def6fa;
+}
+.btn-do-task:hover{
+    box-shadow: #c1bebe 2px 2px;
+}
+.btn-do-task:focus {
+    outline: none;
+}
+li .main-task-content:hover{
+    box-shadow: #c6c4c4 3px 3px;
+}
+.main-contents .share-content#share-content:hover{
+    box-shadow: #c6c4c4 3px 3px;
+}
+
+body{
+    min-width: 350px;
+}
+.create-class-form{
+    min-width: 190px;
+}
