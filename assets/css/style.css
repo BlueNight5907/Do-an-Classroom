@@ -451,7 +451,7 @@ div.btn-input {
 }
 @media  only screen and (max-width:768px){
     div.form-container {
-        width: 400px;   
+        max-width: 400px;
     }
     div.notices {
         display: none;
@@ -463,7 +463,6 @@ div.btn-input {
 }
 form.login-form,form.register-form{
     max-width: 550px;
-    min-width: 430px;
     padding:5px;
     border: #c1bebe 3px solid;
     border-radius: 15px;
@@ -472,12 +471,14 @@ form.login-form,form.register-form{
 
 }
 .form-container-div{
+    margin: 0 auto;
     margin-top: 4rem;
     min-width: 350px;
 }
 .login-form-container,.register-form-container{
-    width: 100vw;
     height: 70vh;
+    display: flex;
+
 
 }
 .form-header-text h1{
@@ -495,7 +496,7 @@ form.login-form,form.register-form{
     text-align: center;
 }
 #btn-sidebar{
-    width:56px!important;
+    min-width:56px!important;
     height: 42px;
     border: #e3e3e3 1px solid;
     border-radius: 3px;
@@ -615,4 +616,81 @@ body{
 }
 .create-class-form{
     min-width: 190px;
+}
+.btn-input i.fas:hover{
+    color: #348dfa;
+}
+.main1 h4.user-name {
+    font-size: 20px;
+    color:  var(--text-color);
+    padding-left: 8px;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.people-list-header{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    padding-bottom: 5px;
+    border-bottom: #1cb8ab 3px solid;
+}
+.btn.btn-icon{
+
+    min-width: 60px;
+    height: 40px;
+}
+.table td{
+    vertical-align: baseline;
+    padding: 0;
+}
+.teacher-list, .student-list{
+    height: 40vh;
+}
+.people-list-content{
+    height: 35vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+div.modal#confirm-remove-people-Modal{
+    display: none;
+}
+.top-navbar{
+    flex-wrap: nowrap;
+    height: 65px;
+}
+@media  only screen and (max-width:1000px){
+    #navbar-function{
+        display: none;
+    }
+
+}
+.navbar-right{
+    align-items: center;
+}
+.function-button{
+    height: 65px;
+    border-bottom: #f8f9fa 4px solid;
+    margin-right: 0px;
+    padding-bottom: 10px;
+    vertical-align: center;
+}
+.function-button-group a:hover{
+    background-color: #d9dadb;
+}
+.function-button-group a{
+    color: rgba(0,0,0,.9);
+}
+@media  only screen and (min-width:1001px){
+    #navbar-function-under{
+        display: none;
+    }
+}
+@media  only screen and (max-width:400px){
+    .function-button.px-4{
+        padding-left: 0.5rem!important;
+        padding-right: 0.5rem!important;
+    }
 }

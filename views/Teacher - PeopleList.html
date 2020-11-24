@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Icon -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- My style -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <title>Home</title>
+</head>
+<body>
+    <!--Thanh navbar-->
+    <nav class="navbar py-0 top-navbar navbar-expand-md bg-light justify-content-between navbar-light">
+        <div class="navbar-left d-flex justify-content-center">
+            <button type="button" id="btn-sidebar"  class="mr-3 btn-light border border-dark align-content-center">
+            <span >
+                <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-justify" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M2 12.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+                </svg>
+            </span>
+            </button>
+            <a class="navbar-brand font-weight-bold text-info" href="#">Classroom</a>
+        </div>
+        <div id="navbar-function" class="col-lg-6 bg-light mr-1">
+            <div class="function-button-group d-flex justify-content-center">
+                <a href="#">
+                    <div class="navbar-brand function-button stream-button px-4 pt-3">
+                        Luồng
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="navbar-brand function-button assignment-button px-4 pt-3">
+                        Bài tập
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="navbar-brand function-button people-button px-4 pt-3">
+                        Mọi người
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="navbar-brand function-button mark-button px-4 pt-3">
+                        Số điểm
+                    </div>
+                </a>
+
+            </div>
+        </div>
+        <div class="navbar-right d-flex justify-content-end">
+            <div class="dropdown">
+                <button type="button" class="btn btn-custom py-1 px-0" data-toggle="dropdown">
+
+                    <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-plus">
+                        <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                    </svg>
+
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item bg-light" onclick="Open_create_class()">Tạo lớp học</a>
+                    <a class="dropdown-item bg-light"  onclick="Open_attend_class()">Tham gia lớp học</a>
+                </div>
+            </div>
+            <div class="user-avatar mx-4">
+                <img src="..\\img\\user.png" alt="User">
+            </div>
+        </div>
+    </nav>
+    <div class="function-button-group-container bg-light col-12 d-flex justify-content-center">
+        <div id="navbar-function-under" class="col-lg-6 bg-light mr-1">
+            <div class="function-button-group d-flex justify-content-center">
+                <a href="#">
+                    <div class="navbar-brand function-button stream-button px-4 pt-3">
+                        Luồng
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="navbar-brand function-button assignment-button px-4 pt-3">
+                        Bài tập
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="navbar-brand function-button people-button px-4 pt-3">
+                        Mọi người
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="navbar-brand function-button mark-button px-4 pt-3">
+                        Số điểm
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </div>
+    <!--Tao lop hoc-->
+    <div class="create-class-form-container p-5">
+        <br>
+        <br>
+        <form class="create-class-form bg-light col-7 mx-auto border rounded rounded-5 p-4 border-primary" action ="#" method="get" onsubmit="">
+            <div class="create-class-form-header"><h2 class="text-primary">Tạo lớp học</h2></div>
+            <div class="form-group">
+                <label for="ClassName">Tên lớp học</label>
+                <input type="text" name="ClassName"  class="form-control" id="ClassName" aria-describedby="emailHelp" placeholder="Tên lớp học">
+                <small id="ClassName-help" class="form-text text-muted">Bạn cần nhập tên lớp học.</small>
+            </div>
+            <div class="form-group">
+                <label for="Describe">Mô tả</label>
+                <input type="text" class="form-control" name="Describe" id="Describe" placeholder="Mô tả về lớp học">
+            </div>
+            <div class="form-group">
+                <label for="Theme">Chủ đề</label>
+                <input type="text" class="form-control" name="Theme" id="Theme" placeholder="Chủ đề của lớp học">
+            </div>
+            <div class="form-group">
+                <label for="Room">Phòng</label>
+                <input type="text" class="form-control" name="Room" id="Room" placeholder="Phần">
+            </div>
+            <div class="form-button justify-content-between">
+                <button type="reset" class="btn btn-light border border-primary" onclick="Close_create_class()">Hủy</button>
+                <button type="submit" class="btn mt-1 btn-primary">Tạo lớp học</button>
+            </div>
+        </form>
+    </div>
+    <!--Them lop hoc-->
+    <div class="attend-class">
+        <header class="join-class-header bg-light">
+            <div class="ml-2 user-avatar bg-light exit">
+                <svg width="2.5em" height="2.5em" viewBox="0 0 16 16" class="bi bi-x" onclick="Close_attend_class()" >
+                    <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                </svg>
+            </div>
+            <div class="text"><h4>Tham gia lớp học</h4></div>
+            <button type="button" class="join btn btn-primary mr-4">
+                Tham gia
+            </button>
+        </header>
+        <div class="container">
+            <div class="row">
+                <div class="box jumbotron bg-light border border-primary">
+                    <div>
+                        <p>Tài khoản mà bạn đang đăng nhập là</p>
+                    </div>
+
+                    <div class="group-account">
+                        <div class="account">
+                            <div>
+                                <div class="user-avatar">
+                                    <img class="img-avt" src="..\\img\\user.png" alt="Logo">
+                                </div>
+                            </div>
+
+                            <div class="account-infor">
+                                <h5>Nameffdsfđsfsdfsdfsdsfd</h5>
+                                <p>gmailffdsfsfdsff</p>
+                            </div>
+                            <div class="short-and-fixed">
+                                <div></div>
+                            </div>
+                        </div>
+                        <button type="button" class="switch font-weight-bold btn btn-light border border-primary text-primary">
+                            Chuyển tài khoản
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            </br>
+            <div class="row">
+                <div class="box jumbotron bg-light border border-primary">
+                    <h4>Mã lớp học</h4>
+                    <p>Mã lớp học của bạn sẽ được giáo viên cấp, sau đó nhập vào đây</p>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Code</span>
+                        </div>
+                        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                </div>
+            </div>
+            </br>
+            <div class="row">
+                <div class="notice">
+                    <h4>Để tham gia vào lớp học bạn cần:</h4>
+                    <ul class="list-notice">
+                        <li>Sử dụng tài khoản được ủy quyền</li>
+                        <li>Sử dụng class code với 5-7 kí tự là chữ hoặc số, ký tự không hợp lệ sẽ không được chấp nhận</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Giao dien cua lop hoc-->
+
+    <!--Đổ dữ liệu-->
+    <div class="main">
+        <div class="container">
+            <!--Danh sách giáo viên-->
+            <div class="row">
+                <div class="teacher-list col-12">
+                    <div class="people-list">
+                        <div class="people-list-header">
+                            <h2 class="text-primary">Giáo viên</h2>
+                            <span>
+                            <button type="button" class="btn btn-icon btn-light btn-outline-primary" id="btn-add-teacher">
+                                <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-person-plus" fill="currentColor">
+                                  <path fill-rule="evenodd" d="M8 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10zM13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+                                </svg>
+                            </button>
+                        </span>
+                        </div>
+                        <!--Danh sách người dùng-->
+                        <div class="people-list-content table-responsive">
+                            <table class="table table-hover">
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="main1">
+                                            <div class="section-img">
+                                                <img src="../img/user.png" alt="img">
+                                            </div>
+                                            <h4 class="user-name">Nguyễn Văn Huy</h4>
+                                        </div>
+                                    </td>
+                                    <td>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="main1">
+                                            <div class="section-img">
+                                                <img src="../img/user.png" alt="img">
+                                            </div>
+                                            <h4 class="user-name">Dung Cẩm Quang</h4>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <div class="btn-group d-flex justify-content-center">
+                                        <span class="ml-3">
+                                            <button type="button" class="btn btn-icon btn-light btn-outline-primary btn-send-email-teacher">
+                                                <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-envelope" fill="currentColor">
+                                                  <path fill-rule="evenodd" d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383l-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z"/>
+                                                </svg>
+                                            </button>
+                                        </span>
+                                            <span class="ml-3">
+                                            <button type="button" class="btn btn-icon btn-light btn-outline-primary btn-remove-people btn-remove-teacher" data-toggle="modal" data-target="#confirm-remove-people-Modal">
+                                                <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-person-dash" fill="currentColor">
+                                                  <path fill-rule="evenodd" d="M8 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10zM11 7.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5z"/>
+                                                </svg>
+                                            </button>
+                                        </span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Danh sách sinh viên-->
+            <div class="row">
+                <div class="student-list col-12">
+                    <div class="people-list">
+                        <div class="people-list-header">
+                            <h2 class="text-primary">Học sinh</h2>
+                            <span>
+                            <inline class="mr-3">1 học sinh</inline>
+
+                            <button type="button" class="btn btn-icon btn-light btn-outline-primary" id="btn-add-student">
+                                <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-person-plus" fill="currentColor">
+                                  <path fill-rule="evenodd" d="M8 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10zM13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+                                </svg>
+                            </button>
+                        </span>
+                        </div>
+                        <!--Danh sách người dùng-->
+                        <div class="people-list-content table-responsive">
+                            <table class="table table-hover">
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="main1">
+                                            <div class="section-img">
+                                                <img src="../img/user.png" alt="img">
+                                            </div>
+                                            <h4 class="user-name">Dung Cẩm Quang</h4>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <div class="btn-group d-flex justify-content-center">
+                                        <span class="ml-3">
+                                            <button type="button" class="btn btn-icon btn-light btn-outline-primary btn-send-email-student">
+                                                <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-envelope" fill="currentColor">
+                                                  <path fill-rule="evenodd" d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383l-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z"/>
+                                                </svg>
+                                            </button>
+                                        </span>
+                                            <span class="ml-3">
+                                            <button type="button" class="btn btn-icon btn-light btn-outline-primary btn-remove-people btn-remove-student" data-toggle="modal" data-target="#confirm-remove-people-Modal">
+                                                <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-person-dash" fill="currentColor">
+                                                  <path fill-rule="evenodd" d="M8 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10zM11 7.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5z"/>
+                                                </svg>
+                                            </button>
+                                        </span>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Thông báo muốn xóa người dùng hay không-->
+        <div class="modal fade" id="confirm-remove-people-Modal">
+            <div class="modal-dialog modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Xóa người tham gia</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        Bạn có chắc xóa người này ra khỏi nhóm
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="accept_remove_people btn btn-danger" data-dismiss="modal">Chắc chắn</button>
+                        <button type="button" class="refuse_remove_people btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+    <script src="..//assets//js//main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -43,62 +43,23 @@
                         Mọi người
                     </div>
                 </a>
-                <a href="#">
-                    <div class="navbar-brand function-button mark-button px-4 pt-3">
-                        Số điểm
-                    </div>
-                </a>
-
             </div>
         </div>
         <div class="navbar-right d-flex justify-content-end">
             <div class="dropdown">
-                <button type="button" class="btn btn-custom py-1 px-0" data-toggle="dropdown">
+                <button type="button" class="btn btn-custom py-1 px-0" onclick="Open_attend_class()">
 
                     <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-plus">
                         <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
                     </svg>
 
                 </button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item bg-light" onclick="Open_create_class()">Tạo lớp học</a>
-                    <a class="dropdown-item bg-light"  onclick="Open_attend_class()">Tham gia lớp học</a>
-                </div>
             </div>
             <div class="user-avatar mx-4">
                 <img src="..\\img\\user.png" alt="User">
             </div>
         </div>
     </nav>
-    <!--Tao lop hoc-->
-    <div class="create-class-form-container p-5">
-        <br>
-        <br>
-        <form class="create-class-form bg-light col-7 mx-auto border rounded rounded-5 p-4 border-primary" action ="#" method="get" onsubmit="">
-            <div class="create-class-form-header"><h2 class="text-primary">Tạo lớp học</h2></div>
-            <div class="form-group">
-                <label for="ClassName">Tên lớp học</label>
-                <input type="text" name="ClassName"  class="form-control" id="ClassName" aria-describedby="emailHelp" placeholder="Tên lớp học">
-                <small id="ClassName-help" class="form-text text-muted">Bạn cần nhập tên lớp học.</small>
-            </div>
-            <div class="form-group">
-                <label for="Describe">Mô tả</label>
-                <input type="text" class="form-control" name="Describe" id="Describe" placeholder="Mô tả về lớp học">
-            </div>
-            <div class="form-group">
-                <label for="Theme">Chủ đề</label>
-                <input type="text" class="form-control" name="Theme" id="Theme" placeholder="Chủ đề của lớp học">
-            </div>
-            <div class="form-group">
-                <label for="Room">Phòng</label>
-                <input type="text" class="form-control" name="Room" id="Room" placeholder="Phần">
-            </div>
-            <div class="form-button justify-content-between">
-                <button type="reset" class="btn btn-light border border-primary" onclick="Close_create_class()">Hủy</button>
-                <button type="submit" class="btn mt-1 btn-primary">Tạo lớp học</button>
-            </div>
-        </form>
-    </div>
     <!--Them lop hoc-->
     <div class="attend-class">
         <header class="join-class-header bg-light">

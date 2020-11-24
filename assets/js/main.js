@@ -62,4 +62,49 @@ function Open_create_class(){
 function Close_create_class(){
     $(".create-class-form-container").hide("slow");
 }
+function remove_People(){
+    let td = item_remove.parent().parent().parent();
+    let tr = td.parent();
+    tr.remove();
+}
 
+//Xóa người dùng ra khỏi lớp học
+let item_remove = null;
+$(".btn-remove-people").on("click", function(event){
+    item_remove=$(this);
+});
+$(".accept_remove_people").on("click", function(event){
+    remove_People();
+    item_remove = null;
+});
+$(".refuse_remove_people").on("click", function(event){
+    item_remove = null;
+});
+//Thay đổi giao diện nút được nhấn hoặc rơ chuột
+let current_function_button = null;
+$('.function-button').on("click",function (event){
+    if(current_function_button != null){
+        current_function_button.css('border-bottom','#f8f9fa 4px solid');
+        current_function_button.css('color','rgba(0,0,0,.9)');
+    }
+    $(this).css('border-bottom','#07a36f 4px solid');
+    $(this).css('color','#07a36f');
+    $(this).css('background-color','#c4f5e5');
+    current_function_button = $(this);
+});
+$('.function-button').on('mouseenter',function (event){
+    if(current_function_button!=null){
+        if(current_function_button.text() == $(this).text()){
+            current_function_button.css('background-color','#dff5ee');
+        }
+        else{
+            $(this).css('background-color','#d9dadb');
+        }
+    }
+    else{
+        $(this).css('background-color','#d9dadb');
+    }
+});
+$('.function-button').on('mouseleave',function (event){
+    $(this).css('background-color','#f8f9fa');
+});
