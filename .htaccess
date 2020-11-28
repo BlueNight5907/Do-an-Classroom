@@ -1,0 +1,3 @@
+Options -Indexes
+RewriteEngine On
+RewriteRule ^([\w]+)/?$ index.php [L,QSA]

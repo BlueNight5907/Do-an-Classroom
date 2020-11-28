@@ -2,6 +2,5 @@
 <project version="4">
   <component name="JavaScriptLibraryMappings">
     <file url="PROJECT" libraries="{bootstrap, jquery, jquery-3.5.1, popper.js}" />
-    <includedPredefinedLibrary name="HTTP Response Handler" />
   </component>
 </project>
