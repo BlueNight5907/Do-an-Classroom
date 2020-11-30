@@ -25,7 +25,7 @@ window.onload = (event) => {
         shareContent.style.display = "block";
         partition.style.display = "none";
     });
-    $.get( "./inc/GetAction.php", function( data ) {
+    $.get( "http://localhost/user/inc/GetAction.php", function( data ) {
         var action = JSON.parse(data).action;
         if(action == 'ClassStream')
             ChangeFunctionBtnColor($('.stream-button'));
@@ -64,16 +64,39 @@ function Open_create_class(){
 function Close_create_class(){
     $(".create-class-form-container").hide("slow");
 }
+function Open_change_class(){
+    $(".change-class-form-container").show("slow");
+}
+function Close_change_class(){
+    $(".change-class-form-container").hide("slow");
+}
+let rs = false;
 function remove_People(){
-    let td = item_remove.parent().parent().parent();
+    let ID = item_remove.id;
+    let btn = item_remove.button;
+    let td = btn.parent().parent().parent();
     let tr = td.parent();
-    tr.remove();
+    $.post("inc/RemovePeople.php", {ID: ID}, function(data){
+        let result = JSON.parse(data).result;
+        if(result=="success"){
+            tr.remove();
+        }
+        else{
+            alert(result);
+        }
+    });
+
 }
 
 //Xóa người dùng ra khỏi lớp học
 let item_remove = null;
 $(".btn-remove-people").on("click", function(event){
-    item_remove=$(this);
+    let btn = $(this);
+    let span = btn.parent();
+    let div = span.parent();
+    let Class = div.attr('class');
+    let ID = getFinalClass(Class);
+    item_remove={button: $(this),id : ID};
 });
 $(".accept_remove_people").on("click", function(event){
     remove_People();
@@ -159,4 +182,45 @@ function appCopyToClipBoard(sText)
 
     $(oText).remove();
     return bResult;
+}
+function getFinalClass(String){
+    let arrString = String.split(" ");
+    return arrString[arrString.length - 1]
+}
+$(".btn-send-email-student").on("click",function(e){
+    let btn = $(this);
+    let span = btn.parent();
+    let div = span.parent();
+    let Class = div.attr('class');
+    let ID = getFinalClass(Class);
+    alert(ID);
+
+});
+$(".btn-send-email-teacher").on("click",function(e){
+    let btn = $(this);
+    let span = btn.parent();
+    let div = span.parent();
+    let Class = div.attr('class');
+    let ID = getFinalClass(Class);
+    alert(ID);
+
+});
+if ( window.history.replaceState ) {
+    window.history.replaceState( null, null, window.location.href );
+}
+$('.btn-delete-class').on('click',()=>{
+    $(".change-class-form-container").hide("slow");
+});
+$('.accept_remove_class').on('click',()=>{
+    $.post("inc/RemoveClass.php", {remove_class: true}, function(data){
+        if(data == 1){
+            Redirect();
+        }
+        else{
+            alert(data);
+        }
+    });
+});
+function Redirect() {
+    window.location="http://localhost/User/Home.php";
 }

@@ -1,12 +1,8 @@
 <?php
     session_start();
 // front controller
-if((!isset($_SESSION['username']))||(!isset($_SESSION['password']))||($_SESSION['role']!==2)){
+if((!isset($_SESSION['username']))||(!isset($_SESSION['password']))||($_SESSION['role']<2)){
     header('Location: ../index.php');
-    die();
-}
-if(isset($_GET['Classroom'])&&$_GET['Classroom']==='a'){
-    print_r('Hello World');
     die();
 }
 include_once '../vendor/autoload.php';
@@ -38,10 +34,14 @@ include_once '../vendor/autoload.php';
     $data = $database->query_prepared($sql, $param);
     $user_infor = $data['data'][0];
     $_SESSION['userIMG']=$user_infor['userIMG'];
+    //Xử lý form tạo lớp học
+    include_once 'inc/CreateNewClass.php';
+    echo '</br>';
     //Tải lên danh sách lớp học
     include '.\inc\LoadClass.php';
     print_r($ClassInfor);
-    echo '</br>';
+
+
 
 ?>
     <nav class="navbar py-0 top-navbar navbar-expand-md bg-light justify-content-between navbar-light">
@@ -76,13 +76,13 @@ include_once '../vendor/autoload.php';
             </div>
             <div class="dropdown" id="user-dropdown">
                 <div class="user-avatar mx-3" id="dropdownUserProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="..\<?php echo $user_infor['userIMG']; ?>" alt="User">
+                    <img src="../<?php echo $user_infor['userIMG']; ?>" alt="User">
                 </div>
                 <div class="dropdown-menu dropdownUserProfile" aria-labelledby="dropdownUserProfile">
                     <div class="user-card-container d-flex justify-content-center">
                         <div class="card user-card">
                             <div class="user-card-img-container d-flex justify-content-center">
-                                <img class=" user-card-img" src="..\<?php echo $user_infor['userIMG']; ?>" alt="Card image">
+                                <img class=" user-card-img" src="../<?php echo $user_infor['userIMG']; ?>" alt="Card image">
                             </div>
                             <div class="card-body">
                                 <h4 class="card-title"><?php echo $user_infor['Ho'].' '.$user_infor['Ten']; ?></h4>
@@ -103,34 +103,34 @@ include_once '../vendor/autoload.php';
     include 'SideBar.php';
 ?>
     <!--Tao lop hoc-->
-    <div class="create-class-form-container p-5">
-        <br>
-        <br>
-        <form class="create-class-form bg-light col-7 mx-auto border rounded rounded-5 p-4 border-primary" action ="#" method="get" onsubmit="">
-            <div class="create-class-form-header"><h2 class="text-primary">Tạo lớp học</h2></div>
-            <div class="form-group">
-                <label for="ClassName">Tên lớp học</label>
-                <input type="text" name="ClassName"  class="form-control" id="ClassName" aria-describedby="emailHelp" placeholder="Tên lớp học">
-                <small id="ClassName-help" class="form-text text-muted">Bạn cần nhập tên lớp học.</small>
-            </div>
-            <div class="form-group">
-                <label for="Object">Môn học</label>
-                <input type="text" class="form-control" name="Object" id="Object" placeholder="Môn học">
-            </div>
-            <div class="form-group">
-                <label for="Room">Phòng</label>
-                <input type="text" class="form-control" name="Room" id="Room" placeholder="Phần">
-            </div>
-			<div class="form-group">
-                <label for="Describe">Mô tả</label>
-                <input type="text" class="form-control" name="Describe" id="Describe" placeholder="Mô tả về lớp học">
-            </div>
-            <div class="form-button justify-content-between">
-                <button type="reset" class="btn btn-light border border-primary" onclick="Close_create_class()">Hủy</button>
-                <button type="submit" class="btn mt-1 btn-primary">Tạo lớp học</button>
-            </div>
-        </form>
-    </div>
+<div class="create-class-form-container p-5">
+    <br>
+    <br>
+    <form class="create-class-form bg-light col-7 mx-auto border rounded rounded-5 p-4 border-primary" action ="#" method="post" enctype="multipart/form-data">
+        <div class="create-class-form-header"><h2 class="text-primary">Tạo lớp học</h2></div>
+        <div class="form-group">
+            <label for="ClassName">Tên lớp học</label>
+            <input type="text" name="ClassName"  class="form-control" id="ClassName" aria-describedby="emailHelp" placeholder="Tên lớp học">
+            <small id="ClassName-help" class="form-text text-muted">Bạn cần nhập tên lớp học.</small>
+        </div>
+        <div class="form-group">
+            <label for="Object">Môn học</label>
+            <input type="text" class="form-control" name="Subject" id="Subject" placeholder="Môn học">
+        </div>
+        <div class="form-group">
+            <label for="Room">Phòng</label>
+            <input type="text" class="form-control" name="Room" id ="Room" placeholder="Phòng học">
+        </div>
+        <div class="form-group">
+            <label for="BackgroundIMG">Ảnh nền của lớp học</label>
+            <input type="file" class="form-control" name="BackgroundIMG" id="BackgroundIMG" placeholder="img">
+        </div>
+        <div class="form-button justify-content-between">
+            <button type="reset" class="btn btn-light border border-primary" onclick="Close_create_class()">Hủy</button>
+            <button type="submit" name="TypeUpLoad" value="BackgroundClass" class="btn mt-1 btn-primary">Tạo lớp học</button>
+        </div>
+    </form>
+</div>
     <!--Them lop hoc-->
     <div class="attend-class">
         <header class="join-class-header bg-light">
@@ -155,7 +155,7 @@ include_once '../vendor/autoload.php';
                         <div class="account">
                             <div>
                                 <div class="user-avatar">
-                                    <img class="img-avt" src="<?php echo $user_infor['userIMG']; ?>" alt="Logo">
+                                    <img class="img-avt" src="../<?php echo $user_infor['userIMG']; ?>" alt="Logo">
                                 </div>
                             </div>
 
@@ -203,7 +203,7 @@ include_once '../vendor/autoload.php';
     </div>
     <!--Giao dien cua lop hoc-->
     <section class="main-header">
-        <div class="container justify-content-between">
+        <div class="container-fluid justify-content-between">
             <div class="options-active">
                 <div class="to-do">
                     <a href="#">
@@ -227,6 +227,16 @@ include_once '../vendor/autoload.php';
     </section>
     <!-- Đổ dữ liệu classlist vào Home-->
     <section class="main-class">
+        <?php
+        if(!empty($create_class_announce)){
+            ?>
+            <div class="alert alert-info alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                Tạo lớp học <strong><?php echo $create_class_announce;?></strong>
+            </div>
+            <?php
+        }
+        ?>
         <div class="container-fluid p-4">
             <?php
                 include '.\inc\Classlist.php';
@@ -246,7 +256,7 @@ include_once '../vendor/autoload.php';
 
 
 
-    <script src="..//main.js"></script>
+    <script src="../main.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

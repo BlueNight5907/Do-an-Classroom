@@ -1,6 +1,6 @@
 <?php
 $database = new BaseModel();
-$sql = "select account.username,Ho,Ten,vaitro,userIMG from thamgialophoc inner join account on  thamgialophoc.username = account.username where thamgialophoc.MaLopHoc = ? and thamgialophoc.activated = b'1' ";
+$sql = "select JoinClassID,account.username,Ho,Ten,vaitro,userIMG from thamgialophoc inner join account on  thamgialophoc.username = account.username where thamgialophoc.MaLopHoc = ? and thamgialophoc.activated = b'1' ";
 $param = array('s', &$_SESSION['ClassCode']);
 $data = $database->query_prepared($sql, $param);
 $peopleInfor = null;
@@ -29,13 +29,19 @@ print_r($Students);
 				<div class="people-list">
 					<div class="people-list-header">
 						<h2 class="text-primary">Giáo viên</h2>
-						<span>
-						<button type="button" class="btn btn-icon btn-light btn-outline-primary" id="btn-add-teacher">
-							<svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-person-plus" fill="currentColor">
-							  <path fill-rule="evenodd" d="M8 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10zM13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
-							</svg>
-						</button>
-					</span>
+                        <?php if($_SESSION['ClassRole']!=='student'){
+                           ?>
+                            <span>
+                            <button type="button" class="btn btn-icon btn-light btn-outline-primary" id="btn-add-teacher" data-toggle="modal" data-target="#add-teacher-modal">
+                                <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-person-plus" fill="currentColor">
+                                  <path fill-rule="evenodd" d="M8 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10zM13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+                                </svg>
+                            </button>
+                        </span>
+
+                        <?php
+                        }
+                        ?>
 					</div>
 					<!--Danh sách người dùng-->
 					<div class="people-list-content table-responsive">
@@ -61,7 +67,7 @@ print_r($Students);
                                 <td>
                                     <div class="main1">
                                         <div class="section-img">
-                                            <img src="../<?php echo $Teacher['userIMG'] ?>" alt="img">
+                                            <img src="..\<?php echo $Teacher['userIMG'] ?>" alt="img">
                                         </div>
                                         <h4 class="user-name"><?php echo $Teacher['Ho'].' '.$Teacher['Ten'] ?></h4>
                                     </div>
@@ -71,7 +77,7 @@ print_r($Students);
                                     <?php
                                     if($_SESSION['ClassRole']==='creator'){
                                         ?>
-                                        <div class="btn-group d-flex justify-content-center ">
+                                        <div class="btn-group d-flex justify-content-center <?php echo $Teacher['JoinClassID']?>">
                                             <span class="mr-2">
                                                 <button type="button" class="btn btn-icon btn-light btn-outline-primary btn-send-email-teacher">
                                                     <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-envelope" fill="currentColor">
@@ -111,12 +117,16 @@ print_r($Students);
 						<h2 class="text-primary">Học sinh</h2>
 						<span>
 						<inline class="mr-3 h6"><?php echo count($Students) ?> học sinh</inline>
-
-						<button type="button" class="btn btn-icon btn-light btn-outline-primary" id="btn-add-student">
-							<svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-person-plus" fill="currentColor">
-							  <path fill-rule="evenodd" d="M8 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10zM13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
-							</svg>
-						</button>
+                         <?php if($_SESSION['ClassRole']!=='student'){
+                         ?>
+                            <button type="button" class="btn btn-icon btn-light btn-outline-primary" id="btn-add-student" data-toggle="modal" data-target="#add-student-modal">
+                                <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-person-plus" fill="currentColor">
+                                  <path fill-rule="evenodd" d="M8 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10zM13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+                                </svg>
+                            </button>
+                            <?php
+                         }
+                            ?>
 					</span>
 					</div>
 					<!--Danh sách người dùng-->
@@ -130,7 +140,7 @@ print_r($Students);
                                     <td>
                                         <div class="main1">
                                             <div class="section-img">
-                                                <img src="../<?php echo $Student['userIMG'] ?>" alt="img">
+                                                <img src="..\<?php echo $Student['userIMG'] ?>" alt="img">
                                             </div>
                                             <h4 class="user-name"><?php echo $Student['Ho'].' '.$Student['Ten'] ?></h4>
                                         </div>
@@ -140,7 +150,7 @@ print_r($Students);
                                     <?php
                                     if($_SESSION['ClassRole']==='teacher'||$_SESSION['ClassRole']==='creator'){
                                     ?>
-                                        <div class="btn-group d-flex justify-content-center ">
+                                        <div class="btn-group d-flex justify-content-center <?php echo $Student['JoinClassID'] ?>">
                                             <span class="mr-2">
                                                 <button type="button" class="btn btn-icon btn-light btn-outline-primary btn-send-email-student">
                                                     <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-envelope" fill="currentColor">
@@ -174,6 +184,7 @@ print_r($Students);
 			</div>
 		</div>
 	</div>
+    <!----------------------------------------------------------------------------------------->
 	<!-- Thông báo muốn xóa người dùng hay không-->
 	<div class="modal fade" id="confirm-remove-people-Modal">
 		<div class="modal-dialog modal-dialog">
@@ -199,4 +210,101 @@ print_r($Students);
 			</div>
 		</div>
 	</div>
+    <!-- Modal thêm sinh viên-->
+    <div class="modal fade" id="add-student-modal">
+        <div class="modal-dialog modal-dialog-scrollable  modal-dialog-centered">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Thêm sinh viên</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+
+                <!-- Moda3 body -->
+                <div class="modal-body">
+                    <h5>Thêm sinh viên bằng email</h5>
+                    <form class="mt-2 form-inline" method='post'>
+                        <input type="email" class=" mt-2 form-control" id="email" placeholder="Nhập Email" name="studentemail">
+                        <button type="submit" class="ml-4 mt-2 btn btn-outline-primary" id="add-student-by-email">Thêm</button>
+                    </form>
+                </div>
+                <div class="modal-body">
+                    <h5>Xác nhận sinh viên tham gia lớp học</h5>
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div class="main1">
+                                    <div class="section-img">
+                                        <img src="../Public/img/user.png" alt="img">
+                                    </div>
+                                    <h4 class="user-name">Nguyễn Văn Huy</h4>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="btn-group d-flex justify-content-center">
+                                    <!-- Nút xóa-->
+                                    <span class="mr-2">
+                                            <button type="button" class="btn btn-icon btn-light btn-outline-primary btn-remove-people btn-removing-student" data-toggle="modal" data-target="#">
+                                                <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-person-dash">
+                                                  <path fill-rule="evenodd" d="M8 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10zM11 7.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5z"/>
+                                                </svg>
+                                            </button>
+                                        </span>
+                                    <!-- Nút thêm-->
+                                    <span class="mr-2">
+                                            <button type="button" class="btn btn-icon btn-light btn-outline-primary btn-adding-student" data-target="#">
+                                                <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-person-plus" fill="currentColor">
+                                                  <path fill-rule="evenodd" d="M8 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10zM13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+                                                </svg>
+                                            </button>
+                                        </span>
+                                </div>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Modal thêm giáo viên-->
+    <div class="modal fade" id="add-teacher-modal">
+        <div class="modal-dialog modal-dialog-scrollable  modal-dialog-centered">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Thêm giảng viên</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+
+                <!-- Moda3 body -->
+                <div class="modal-body">
+                    <h5>Thêm giáo viên bằng email</h5>
+                    <form class="mt-2 form-inline" method='post'>
+                        <input type="email" class=" mt-2 form-control" id="email" placeholder="Nhập Email" name="teacheremail">
+                        <button type="submit" id="add-teacher-by-email" class="ml-4 mt-2 btn btn-outline-primary">Thêm</button>
+                    </form>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
 </div>

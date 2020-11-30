@@ -11,11 +11,12 @@
 
         }
         if($_SESSION['role']===2){
-            header('Location: .\Teacher\Home.php');
+            header('Location: ./user/Home.php');
             die();
 
         }
         if($_SESSION['role']===3){
-
+            header('Location: ./user/Home.php');
+            die();
         }
     }

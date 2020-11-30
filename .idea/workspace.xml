@@ -15,6 +15,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="composer.json" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -36,6 +37,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="node.js.detected.package.eslint" value="true" />
@@ -58,7 +60,9 @@
       <workItem from="1606391094205" duration="28145000" />
       <workItem from="1606472826605" duration="36408000" />
       <workItem from="1606541501875" duration="16215000" />
-      <workItem from="1606573880057" duration="6519000" />
+      <workItem from="1606573880057" duration="20775000" />
+      <workItem from="1606594835296" duration="714000" />
+      <workItem from="1606623664386" duration="40213000" />
     </task>
     <servers />
   </component>
@@ -66,18 +70,22 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="1274" y="442" key="NewPhpFileDialog" timestamp="1606573991998">
+    <state x="828" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1606590902785">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1274" y="442" key="NewPhpFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1606573991998" />
+    <state x="828" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1606590902785" />
+    <state x="1274" y="442" key="NewPhpFileDialog" timestamp="1606660773986">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1274" y="442" key="NewPhpFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1606660773986" />
     <state x="922" y="164" key="SettingsEditor" timestamp="1606394212078">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="922" y="164" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1606394212078" />
-    <state x="1096" y="242" key="run.anything.popup" timestamp="1606391779076">
+    <state x="1096" y="242" key="run.anything.popup" timestamp="1606633410553">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1096" y="242" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1606391779076" />
+    <state x="1096" y="242" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1606633410553" />
     <state x="1103" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1606577462806">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

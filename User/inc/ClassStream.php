@@ -1,31 +1,5 @@
 <?php
     $database = new BaseModel();
-    $sql = 'select * from lophoc where MaLopHoc = ?';
-    $param = array('s', &$_SESSION['ClassCode']);
-    $data = $database->query_prepared($sql, $param);
-    $classInfor = null;
-    if($data['code']===0)
-        if($data['data']!==array()){
-            $classInfor = $data['data'][0];
-        }
-    $role = null;
-    if($classInfor['NguoiTao']===$_SESSION['username']){
-        $_SESSION['ClassRole'] = 'creator';
-    }
-    else{
-        $database = new BaseModel();
-        $sql = 'select vaitro from thamgialophoc where MaLopHoc = ? and username = ?';
-        $param = array('ss', &$_SESSION['ClassCode'],&$_SESSION['username']);
-        $data = $database->query_prepared($sql, $param);
-        $role = $data['data'][0]['vaitro'];
-    }
-    if($role === 2){
-        $_SESSION['ClassRole'] = 'teacher';
-    }
-    elseif ($role === 3){
-        $_SESSION['ClassRole'] = 'student';
-    }
-    $database = new BaseModel();
     $sql = 'select Ho,Ten,userIMG from account where username = ?';
     $param = array('s', &$classInfor['NguoiTao']);
     $data = $database->query_prepared($sql, $param);
@@ -35,14 +9,16 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <div class="main-header">
+            <div class="main-header" >
                 <div class="btn-header" id="btn-header">
                     <i class="fas fa-chevron-down"></i>
                 </div>
-                <div class="main-header-info">
+                <div class="main-header-info" <?php if(!empty($classInfor['AnhDaiDien'])) { ?>
+                    style="background-image: url(../<?php echo $classInfor['AnhDaiDien']?>)"
+                <?php } ?>>
                     <h2 class="main-heading"><?php echo $classInfor['TenLopHoc'] ?></h2>
                     <div class="class-teacher-name"><?php echo $_SESSION['Creator'] ?></div>
-                    <div class="class-teacher-name d-flex" >Mã lớp học:<div class="ml-2" id="copyMe"><?php echo $classInfor['MaLopHoc']?></div>
+                    <div class="class-teacher-name d-flex" ><div class="CodeClass">Mã lớp học:</div><div class="ml-2" id="copyMe"><?php echo $classInfor['MaLopHoc']?></div>
                         <button class="ml-2 copy-btn" onclick="copyMyText()"><i class="far fa-clone"></i></button></div>
 
                 </div>
@@ -71,7 +47,7 @@
                 <div class="share-content" id="share-content" >
                     <div class="section1">
                         <div class="section-img">
-                            <img src="../<?php echo $user_infor['userIMG']; ?>" alt="img">
+                            <img src="..\<?php echo $user_infor['userIMG']; ?>" alt="img">
                         </div>
                         <div class="content-note">Chia sẻ vài điều với lớp học</div>
                     </div>
@@ -101,7 +77,7 @@
                         <div class="main-task-content">
                             <div class="main1">
                                 <div class="section-img">
-                                    <img src="../<?php echo $user_infor['userIMG']; ?>" alt="img">
+                                    <img src="..\<?php echo $user_infor['userIMG']; ?>" alt="img">
                                 </div>
                                 <h4 class="user-name">Nguyễn Thành Luân</h4>
                                 <div class="dropup">
@@ -125,7 +101,7 @@
                             </div>
                             <div class="main2">
                                 <div class="section-img">
-                                    <img src="../<?php echo $user_infor['userIMG']; ?>" alt="img">
+                                    <img src="..\<?php echo $user_infor['userIMG']; ?>" alt="img">
                                 </div>
                                 <div class="input-content-chat">
                                     <input type="text" placeholder="Thêm bình luận">

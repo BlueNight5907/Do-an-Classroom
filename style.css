@@ -170,28 +170,7 @@ footer.footer {
     bottom: 10px;
     left: 25px;
 }
-/* style of modal */
-div.modal {
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    display: flex;
-}
-div.modal-overlay {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.4);
-}
 
-div.modal-body {
-    background-color:white; 
-    margin: auto;
-    z-index: 1;
-    border-radius: 5px;
-}
 
 
 div.form-container {
@@ -252,9 +231,7 @@ input.user-infor {
 .btn {
     min-width: 142px;
     height:36px;
-    border: none;
     border-radius: 3px;
-    outline: none;
     cursor: pointer;
 }
 
@@ -654,7 +631,7 @@ body{
     overflow-x: hidden;
     overflow-y: auto;
 }
-div.modal#confirm-remove-people-Modal{
+div.modal#confirm-remove-people-Modal, div.modal#confirm-remove-class-Modal{
     display: none;
 }
 .top-navbar{
@@ -756,6 +733,7 @@ td div.btn-group{
     bottom: 0;
     display:none;
     animation: faceIn linear 0.2s;
+    margin: 0;
 }
 .side-nav-category {
     width: 315px;
@@ -888,10 +866,10 @@ span label{
     width:50px;
 }
 label svg{
-    margin-top: 5px;
+    margin-top: 8px;
 }
-.main-header .container{
-    width: 90%;
+.main-header .container-fluid{
+    width: 100%;
     display: flex;
 }
 .btn-search{
@@ -900,4 +878,64 @@ label svg{
 .options-active{
     width: 300px ;
     display: block;
+}
+#noticeModal.bg-light{
+    background-color: rgba(1,255,255,0.1)!important;
+}
+#copyMe{
+    max-width:200px ;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.CodeClass{
+    white-space: nowrap;
+}
+.form-inline.my-2{
+    margin-right: 5%;
+}
+
+body{
+    min-height: 100vh;
+}
+.navbar-right #btn-setting-class{
+    min-width:56px!important;
+    height: 42px;
+    border-radius: 3px;
+}
+.navbar-left a.navbar-brand{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 100px;
+}
+.navbar-left{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 150px;
+}
+.change-class-form-container{
+    display: none;
+    z-index: 3;
+    width:100vw;
+    height: 100vh;
+    position: fixed;
+    top:0px;
+    left: 0px;
+    background-color: rgba(0,0,0,0.5);
+}
+form div input{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 150px;
+}
+.create-class-form-header{
+    width: 100%;
+    flex-wrap: wrap;
+}
+.btn-removing-student{
+    fill: #ac0c0c;
+    border: #ac0c0c 1px solid;
 }

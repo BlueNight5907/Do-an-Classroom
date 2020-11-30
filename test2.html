@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>Modal Scroll Example</h2>
+    <p>Use the .modal-dialog-scrollable class to enable scrolling inside the modal.</p>
+    <!-- Button to Open the Modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-teacher-modal">
+        Open modal
+    </button>
+
+    <!-- Modal thêm giáo viên-->
+    <div class="modal fade" id="add-teacher-modal">
+        <div class="modal-dialog modal-dialog-scrollable  modal-dialog-centered">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Thêm sinh viên</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+
+                <!-- Moda3 body -->
+                <div class="modal-body">
+                    <h5>Thêm giáo viên bằng email</h5>
+                    <form class="mt-2 form-inline" method='post'>
+                        <input type="email" class=" mt-2 form-control" id="email" placeholder="Nhập Email" name="email">
+                        <button type="submit" class="ml-4 mt-2 btn btn-outline-primary">Thêm</button>
+                    </form>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
