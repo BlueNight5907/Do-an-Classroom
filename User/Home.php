@@ -1,7 +1,7 @@
 <?php
     session_start();
 // front controller
-if((!isset($_SESSION['username']))||(!isset($_SESSION['password']))||($_SESSION['role']<2)){
+if((!isset($_SESSION['username']))||(!isset($_SESSION['password']))){
     header('Location: ../index.php');
     die();
 }
@@ -34,12 +34,11 @@ include_once '../vendor/autoload.php';
     $data = $database->query_prepared($sql, $param);
     $user_infor = $data['data'][0];
     $_SESSION['userIMG']=$user_infor['userIMG'];
+
     //Xử lý form tạo lớp học
     include_once 'inc/CreateNewClass.php';
-    echo '</br>';
     //Tải lên danh sách lớp học
     include '.\inc\LoadClass.php';
-    print_r($ClassInfor);
 
 
 
@@ -72,6 +71,7 @@ include_once '../vendor/autoload.php';
                 <div class="dropdown-menu add">
                     <a class="dropdown-item bg-light" onclick="Open_create_class()">Tạo lớp học</a>
                     <a class="dropdown-item bg-light"  onclick="Open_attend_class()">Tham gia lớp học</a>
+                    <a class="dropdown-item bg-light"  >Quản lý tài khoản</a>
                 </div>
             </div>
             <div class="dropdown" id="user-dropdown">
@@ -85,7 +85,10 @@ include_once '../vendor/autoload.php';
                                 <img class=" user-card-img" src="../<?php echo $user_infor['userIMG']; ?>" alt="Card image">
                             </div>
                             <div class="card-body">
-                                <h4 class="card-title"><?php echo $user_infor['Ho'].' '.$user_infor['Ten']; ?></h4>
+                                <h4 class="card-title"><?php echo $user_infor['Ho'].' '.$user_infor['Ten'];
+                                    if($_SESSION['role']===1) {
+                                        echo '(Admin)';
+                                    }?></h4>
                                 <p class="card-text"><?php echo $user_infor['email']; ?></p>
                                 <p class="d-flex"><a href="#" id="show-user-profile-btn" class="btn btn-primary">See Profile</a></p>
                             </div>
@@ -160,7 +163,10 @@ include_once '../vendor/autoload.php';
                             </div>
 
                             <div class="account-infor">
-                                <h5><?php echo $user_infor['Ho'].' '.$user_infor['Ten']; ?></h5>
+                                <h5><?php echo $user_infor['Ho'].' '.$user_infor['Ten'];
+                                if($_SESSION['role']===1) {
+                                    echo '(Admin)';
+                                }?></h5>
                                 <p><?php echo $user_infor['email']; ?></p>
                             </div>
                             <div class="short-and-fixed">

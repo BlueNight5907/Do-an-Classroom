@@ -8,7 +8,11 @@
                 <img src="../<?php echo $_SESSION['userIMG'] ?>" alt="account img">
             </div>
             <div class="account__infos">
-                <h3 class="account__name"><?php echo $user_infor['Ho'].' '.$user_infor['Ten']; ?></h3>
+                <h3 class="account__name"><?php echo $user_infor['Ho'].' '.$user_infor['Ten'];
+                    if($_SESSION['role']===1) {
+                        echo '(Admin)';
+                    }
+                    ?></h3>
                 <span class="account__gmail"><?php echo $user_infor['email']; ?></span>
             </div>
         </div>

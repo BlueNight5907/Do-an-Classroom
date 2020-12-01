@@ -9,20 +9,24 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <div class="main-header" >
-                <div class="btn-header" id="btn-header">
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="main-header-info" <?php if(!empty($classInfor['AnhDaiDien'])) { ?>
-                    style="background-image: url(../<?php echo $classInfor['AnhDaiDien']?>)"
-                <?php } ?>>
+            <div class="main-header card" >
+                <img src="../<?php if(!empty($classInfor['AnhDaiDien'])) {
+                     echo $classInfor['AnhDaiDien'];
+                }else{
+                    echo 'Public/backgroundIMG/background.jpg';
+                }
+                ?>"
+                 class="card-img-top main-header-info">
+                <div class="card-img-overlay text-white">
                     <h2 class="main-heading"><?php echo $classInfor['TenLopHoc'] ?></h2>
                     <div class="class-teacher-name"><?php echo $_SESSION['Creator'] ?></div>
                     <div class="class-teacher-name d-flex" ><div class="CodeClass">Mã lớp học:</div><div class="ml-2" id="copyMe"><?php echo $classInfor['MaLopHoc']?></div>
                         <button class="ml-2 copy-btn" onclick="copyMyText()"><i class="far fa-clone"></i></button></div>
 
                 </div>
-
+                <div class="btn-header" id="btn-header">
+                    <i class="fas fa-chevron-down"></i>
+                </div>
                 <div class="more-info-of-class" id="more-info-of-class">
                     <p><b>Phòng</b> <?php echo $classInfor['PhongHoc'] ?></p>
                     <p><b>Môn học</b> <?php echo $classInfor['MonHoc'] ?></p>

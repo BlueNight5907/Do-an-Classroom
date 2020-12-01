@@ -15,37 +15,39 @@
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- My style -->
-    <link rel="stylesheet" href="../style.css">
-    <title>Quên mật khẩu</title>
+    <link rel="stylesheet" href="./style.css">
+    <title>Tham gia lớp học</title>
 </head>
 <body class="bg-light">
 <?php
     $error = '';
-    if(isset($_GET['email'])&&isset($_GET['token'])){
-        $email = $_GET['email'];
+    if(isset($_GET['user'])&&isset($_GET['token'])&&isset($_GET['classID'])){
+        $username = $_GET['user'];
         $token = $_GET['token'];
-        if(filter_var($email,FILTER_VALIDATE_EMAIL)===false){
-            $error = 'Email không chính xác';
-        }elseif (strlen($token)!=32){
+        $classID = $_GET['classID'];
+        if (strlen($token)!=32){
             $error = 'Sai định dạng token';
         }
         else{
             $database = new BaseModel();
-            $sql = 'select count(*) from account where activate_token = ? and email = ?';
-            $param = array('ss', &$token,&$email);
-            $data = $database->query_prepared_nonquery($sql, $param);
-            if($data===false){
-                $error = "Xác minh thất bại";
-
+            $sql = 'select expire_on from attend_class_token where token = ? and username = ? and MaLopHoc = ?';
+            $param = array('sss', &$token,&$username,&$classID);
+            $stm = $database->query_prepared($sql, $param);
+            $exp = time();
+            if($stm['code']!==0){
+                $error = 'Xác minh thất bại';
             }
-            else{
+            else if($stm['data'][0]['expire_on'] > $exp){
                 $database = new BaseModel();
-                $sql = "update account set activated = b'1' where email = ?";
-                $param = array('s',&$email);
+                $sql = "update thamgialophoc set activated = b'1' where username = ? and MaLopHoc = ?";
+                $param = array('ss',&$username,&$classID);
                 $data = $database->query_prepared_nonquery($sql, $param);
                 if($data===false){
                     $error = "Xác minh thất bại";
                 }
+            }
+            else{
+                $error = "Lời mời hết hạn";
             }
         }
     }
@@ -56,19 +58,15 @@
         <div class="form-header-text"><h1 class="mx-auto text-info">Classroom</h1></div>
         <form action='login.php' class="login-form border-0 bg-white">
             <div class="form-container">
-                <div class="form-header">
-                    <h3 class="form-heading">Xác minh tài khoản</h3>
-
-                </div>
                 <div class="form-group pt-3">
                     <?php
                     if(!empty($error)){
                         ?>
-                        <p class="text-danger">Xác minh tài khoản thất bại</p>
+                        <h3 class="text-danger"><?php echo $error?></h3>
                      <?php
                     }else{
                     ?>
-                    <p class="text-success">Chúc mừng bạn đã xác minh tài khoản thành công</p>
+                    <h3 class="text-success">Chúc mừng bạn đã tham gia lớp học thành công</h3>
                     <?php
                     }
                     ?>
@@ -84,7 +82,7 @@
 
 
 
-<script src="../main.js"></script>
+<script src="./main.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

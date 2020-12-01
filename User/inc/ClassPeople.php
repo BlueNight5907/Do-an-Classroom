@@ -18,9 +18,6 @@ foreach ($peopleInfor as &$someone) {
         array_push($Students, $someone);
     }
 }
-print_r($Teachers);
-echo '</br>';
-print_r($Students);
 ?>
 <div class="container">
 		<!--Danh sách giáo viên-->
@@ -29,7 +26,7 @@ print_r($Students);
 				<div class="people-list">
 					<div class="people-list-header">
 						<h2 class="text-primary">Giáo viên</h2>
-                        <?php if($_SESSION['ClassRole']!=='student'){
+                        <?php if($_SESSION['ClassRole']==='creator' || $_SESSION['role']=== 1){
                            ?>
                             <span>
                             <button type="button" class="btn btn-icon btn-light btn-outline-primary" id="btn-add-teacher" data-toggle="modal" data-target="#add-teacher-modal">
@@ -185,6 +182,9 @@ print_r($Students);
 		</div>
 	</div>
     <!----------------------------------------------------------------------------------------->
+<?php
+if($_SESSION['ClassRole']!=='student'){
+?>
 	<!-- Thông báo muốn xóa người dùng hay không-->
 	<div class="modal fade" id="confirm-remove-people-Modal">
 		<div class="modal-dialog modal-dialog">
@@ -210,6 +210,12 @@ print_r($Students);
 			</div>
 		</div>
 	</div>
+<?php
+}
+?>
+<?php
+if($_SESSION['ClassRole']!=='student'){
+?>
     <!-- Modal thêm sinh viên-->
     <div class="modal fade" id="add-student-modal">
         <div class="modal-dialog modal-dialog-scrollable  modal-dialog-centered">
@@ -225,7 +231,7 @@ print_r($Students);
                 <div class="modal-body">
                     <h5>Thêm sinh viên bằng email</h5>
                     <form class="mt-2 form-inline" method='post'>
-                        <input type="email" class=" mt-2 form-control" id="email" placeholder="Nhập Email" name="studentemail">
+                        <input type="email" class=" mt-2 form-control student-email" placeholder="Nhập Email" name="studentemail">
                         <button type="submit" class="ml-4 mt-2 btn btn-outline-primary" id="add-student-by-email">Thêm</button>
                     </form>
                 </div>
@@ -233,6 +239,28 @@ print_r($Students);
                     <h5>Xác nhận sinh viên tham gia lớp học</h5>
                     <table class="table">
                         <tbody>
+                        <tr>
+                            <td>
+                                <div class="main1">
+                                    <div class="section-img">
+                                        <img src="../Public/img/user.png" alt="img">
+                                    </div>
+                                    <h4 class="user-name">Nguyễn Văn Huy</h4>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="btn-group d-flex justify-content-end">
+                                    <!-- Nút xóa-->
+                                    <span class="mr-2">
+                                            <button type="button" class="btn btn-icon btn-light btn-outline-primary btn-remove-people btn-removing-student" data-toggle="modal" data-target="#">
+                                                <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-person-x">
+                                                  <path fill-rule="evenodd" d="M8 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10zm1.146-7.85a.5.5 0 0 1 .708 0L14 6.293l1.146-1.147a.5.5 0 0 1 .708.708L14.707 7l1.147 1.146a.5.5 0 0 1-.708.708L14 7.707l-1.146 1.147a.5.5 0 0 1-.708-.708L13.293 7l-1.147-1.146a.5.5 0 0 1 0-.708z"/>
+                                                </svg>
+                                            </button>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
                         <tr>
                             <td>
                                 <div class="main1">
@@ -275,6 +303,12 @@ print_r($Students);
             </div>
         </div>
     </div>
+<?php
+}
+?>
+<?php
+if($_SESSION['ClassRole']==='creator' || $_SESSION['role'] === 1){
+?>
     <!-- Modal thêm giáo viên-->
     <div class="modal fade" id="add-teacher-modal">
         <div class="modal-dialog modal-dialog-scrollable  modal-dialog-centered">
@@ -290,9 +324,38 @@ print_r($Students);
                 <div class="modal-body">
                     <h5>Thêm giáo viên bằng email</h5>
                     <form class="mt-2 form-inline" method='post'>
-                        <input type="email" class=" mt-2 form-control" id="email" placeholder="Nhập Email" name="teacheremail">
+                        <input type="email" class=" mt-2 form-control teacher-email" placeholder="Nhập Email" name="teacheremail">
                         <button type="submit" id="add-teacher-by-email" class="ml-4 mt-2 btn btn-outline-primary">Thêm</button>
                     </form>
+                </div>
+                <div class="modal-body">
+                    <h5>Xác nhận giáo viên tham gia lớp học</h5>
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div class="main1">
+                                    <div class="section-img">
+                                        <img src="../Public/img/user.png" alt="img">
+                                    </div>
+                                    <h4 class="user-name">Nguyễn Văn Huy</h4>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="btn-group d-flex justify-content-end">
+                                    <!-- Nút xóa-->
+                                    <span class="mr-2">
+                                            <button type="button" class="btn btn-icon btn-light btn-outline-primary btn-remove-people btn-removing-student" data-toggle="modal" data-target="#">
+                                                <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-person-x">
+                                                  <path fill-rule="evenodd" d="M8 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10zm1.146-7.85a.5.5 0 0 1 .708 0L14 6.293l1.146-1.147a.5.5 0 0 1 .708.708L14.707 7l1.147 1.146a.5.5 0 0 1-.708.708L14 7.707l-1.146 1.147a.5.5 0 0 1-.708-.708L13.293 7l-1.147-1.146a.5.5 0 0 1 0-.708z"/>
+                                                </svg>
+                                            </button>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <!-- Modal footer -->
                 <div class="modal-footer">
@@ -302,7 +365,9 @@ print_r($Students);
             </div>
         </div>
     </div>
-
+<?php
+}
+?>
 
 
 

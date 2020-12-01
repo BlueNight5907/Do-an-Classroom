@@ -1,6 +1,6 @@
 <?php
     require_once('vendor/autoload.php');
     $db = new BaseModel();
-    $result = $db->invite_student('Huydepzai','henrypoter22@gmail.com','8ab');
+    $result = $db->student_attend_class_by_code('admin','Huydepzai','1ab');
     print_r($result);
     ?>

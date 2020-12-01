@@ -7,8 +7,8 @@
         header('Location: ..\login.php');
         die();
     }
-    elseif($_SESSION['role']===2){
+    else{
         header('Location: Home.php');
         die();
     }
-
+    ?>

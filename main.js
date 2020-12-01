@@ -32,7 +32,38 @@ window.onload = (event) => {
         else if(action == 'ClassPeople')
             ChangeFunctionBtnColor($('.people-button'));
     });
-
+    $('#add-teacher-by-email').on('click',(e)=>{
+        $('form').submit((ev)=>{
+            ev.preventDefault();
+        });
+        let email = $('.teacher-email').val();
+        $.post("inc/InviteTeacher.php", {Teacher_email: email}, function(data){
+            let result = JSON.parse(data).result;
+            if(result=="success"){
+                alert("Mời giáo viên thành công và chờ xác nhận");
+            }
+            else{
+                alert('Thêm giáo viên thất bại');
+            }
+            $('.teacher-email').val('');
+        });
+    });
+    $('#add-student-by-email').on('click',(e)=>{
+        $('form').submit((ev)=>{
+            ev.preventDefault();
+        });
+        let email = $('.student-email').val();
+        $.post("inc/InviteStudent.php", {Student_email: email}, function(data){
+            let result = JSON.parse(data).result;
+            if(result=="success"){
+                alert("Mời sinh viên thành công và chờ xác nhận");
+            }
+            else{
+                alert('Thêm sinh viên thất bại');
+            }
+            $('.student-email').val('');
+        });
+    });
 };
 
 (function() {
@@ -133,8 +164,9 @@ $('.function-button').hover(function (event){
     $(this).css('background-color','#f8f9fa');
 });
 $('#log-out-btn').on('click',function (){
-    alert('hello');
-    window.location.href = 'logout.php';
+    if(confirm('Xác nhận đăng xuất')){
+        window.location.href = 'logout.php';
+    }
 
 });
 function setQueryStringParameter(name, value) {

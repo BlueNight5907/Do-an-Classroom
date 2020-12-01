@@ -25,29 +25,29 @@ require_once('vendor/autoload.php');
         if(!empty($_POST['username'])&&!empty($_POST['password'])){
             $username = $_POST['username'];
             $database = new BaseModel();
-            $sql = 'select password,vaitro,activated from account inner join phanquyen on account.username = phanquyen.username where account.username = ?';
+            $sql = 'select account.username,password,vaitro,activated,email,Ho,Ten from account inner join phanquyen on account.username = phanquyen.username where account.username = ? or email = ?';
             $conn = Database::open();
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("s", $username);
+            $stmt->bind_param("ss", $username,$username);
             $stmt->execute();
             $data = $stmt->get_result()->fetch_assoc();
+
             if($data !== null){
                 $hashed_password = $data['password'];
                 $pasword = $_POST['password'];
                 $active = $data['activated'];
-                print_r($active);
-
                 if(password_verify($pasword,$hashed_password)){
                     if($active === 0){
                         header("Location: UnactiveAccount.html");
                         die();
                     }
                     $_SESSION['password']=$_POST['password'];
-                    $_SESSION['username']=$_POST['username'];
+                    $_SESSION['username']=$data['username'];
+                    $_SESSION['email'] = $data['email'];
                     $_SESSION['role'] = $data['vaitro'];
-                    unset($_POST);
+                    $_SESSION['fullname']=$data['Ho'].' '.$data['Ten'];
+                    //unset($_POST);
                     header("Location: ./index.php");
-
                     die();
                 }
                 else{
@@ -91,7 +91,7 @@ require_once('vendor/autoload.php');
                             ?>
 
                             <div class="auth-form-controls">
-                                <button class="btn btn-primary col-12">ĐĂNG NHẬP</button>
+                                <button type="submit" class="btn btn-primary col-12">ĐĂNG NHẬP</button>
                             </div>
                         </div>
                     </form>

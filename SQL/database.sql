@@ -45,7 +45,7 @@ CREATE TABLE `account` (
 -- Do du lieu
 insert into `account` values
 ('Nguyen Van','Huy','2000/11/18','henrypoter22@gmail.com','admin','$2y$10$4kHhPKNZNR7ch0B/MWT4cuqG2BO/Ra9jV6Q9PzaXaLZm.SUtUZUqa',b'1','admin','Public/img/user2.jpg'),
-('Nguyen Van','Hoa','2000/11/18','henrypoter222@gmail.com','admin1','$2y$10$4kHhPKNZNR7ch0B/MWT4cuqG2BO/Ra9jV6Q9PzaXaLZm.SUtUZUqa',b'1','admin','Public/img/user.png'),
+('Nguyen Van','Hoa','2000/11/18','yeuthatxa136@gmail.com','admin1','$2y$10$4kHhPKNZNR7ch0B/MWT4cuqG2BO/Ra9jV6Q9PzaXaLZm.SUtUZUqa',b'1','admin','Public/img/user.png'),
 ('Nguyen Van','Chuong','2000/11/18','henrypoter2222@gmail.com','admin2','$2y$10$4kHhPKNZNR7ch0B/MWT4cuqG2BO/Ra9jV6Q9PzaXaLZm.SUtUZUqa',b'1','admin','Public/img/user3.png'),
 ('Nguyen Van','Teo','2000/11/18','henrypoter2233@gmail.com','admin3','$2y$10$4kHhPKNZNR7ch0B/MWT4cuqG2BO/Ra9jV6Q9PzaXaLZm.SUtUZUqa',b'1','admin','Public/img/user4.jpg'),
 ('Nguyen Van','Hot vit lon','2000/11/18','henrypoter2244@gmail.com','admin4','$2y$10$4kHhPKNZNR7ch0B/MWT4cuqG2BO/Ra9jV6Q9PzaXaLZm.SUtUZUqa',b'1','123456','Public/img/user5.jpg'),
@@ -207,4 +207,9 @@ CREATE TABLE `attend_class_token` (
 
 -- -----------------------------------------------------
 
+-- Xet tham gia lop hoc
 
+CREATE TABLE XetSVThamGiaLopHoc (
+  username varchar(64) COLLATE utf8_unicode_ci NOT NULL references account(username),
+  MaLopHoc varchar(64) COLLATE utf8_unicode_ci NOT NULL references LopHoc(MaLopHoc)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

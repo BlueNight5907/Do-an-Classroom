@@ -1,7 +1,7 @@
 <?php
 session_start();
 // front controller
-if((!isset($_SESSION['username']))||(!isset($_SESSION['password']))||($_SESSION['role']<2)){
+if((!isset($_SESSION['username']))||(!isset($_SESSION['password']))||(!isset($_SESSION['role']))){
     header('Location: ../index.php');
     die();
 }
@@ -38,28 +38,30 @@ if(isset($_GET['Classroom'])){
     if(!empty($_GET['Classroom'])){
         $classcode = $_GET['Classroom'];
         $database = new BaseModel();
-        $sql = "select * from thamgialophoc where MaLopHoc = ? and username = ? and activated = b'1'";
-        $param = array('ss', &$classcode,&$_SESSION['username']);
+        if($_SESSION['role']!== 1){
+            $sql = "select * from thamgialophoc where MaLopHoc = ? and username = ? and activated = b'1'";
+            $param = array('ss', &$classcode,&$_SESSION['username']);
+            $data = $database->query_prepared($sql, $param);
+            if($data['code']===0){
+                if($data['data']==array()){
+                    header('Location: ../index.php');
+                    die();
+                }
+
+            }
+        }
+        $database = new BaseModel();
+        $sql = "select TenLopHoc from lophoc where MaLopHoc = ? and activated = b'1'";
+        $param = array('s', &$classcode);
         $data = $database->query_prepared($sql, $param);
-        if($data['code']===0)
-            if($data['data']==array()){
-                header('Location: ../index.php');
+        if($data['code']===0) {
+            if ($data['data'] !== array())
+                $ClassName = $data['data'][0]['TenLopHoc'];
+            else {
+                header('Location: Home.php');
                 die();
             }
-            else{
-                $database = new BaseModel();
-                $sql = "select TenLopHoc from lophoc where MaLopHoc = ? and activated = b'1'";
-                $param = array('s', &$classcode);
-                $data = $database->query_prepared($sql, $param);
-                if($data['code']===0){
-                    if($data['data']!==array())
-                        $ClassName = $data['data'][0]['TenLopHoc'];
-                    else{
-                        header('Location: Home.php');
-                        die();
-                    }
-                }
-            }
+        }
         $_SESSION['ClassName']= $ClassName;
         $_SESSION['ClassCode']= $classcode;
     }
@@ -76,7 +78,7 @@ if($data['code']===0)
     }
 $role = null;
     $_SESSION["ClassBackGround"] = $classInfor['AnhDaiDien'];
-if($classInfor['NguoiTao']===$_SESSION['username']){
+if($classInfor['NguoiTao']===$_SESSION['username'] || $_SESSION['role']===1){
     $_SESSION['ClassRole'] = 'creator';
 }
 else{
@@ -85,14 +87,13 @@ else{
     $param = array('ss', &$_SESSION['ClassCode'],&$_SESSION['username']);
     $data = $database->query_prepared($sql, $param);
     $role = $data['data'][0]['vaitro'];
+    if($role === 2){
+        $_SESSION['ClassRole'] = 'teacher';
+    }
+    elseif ($role === 3){
+        $_SESSION['ClassRole'] = 'student';
+    }
 }
-if($role === 2){
-    $_SESSION['ClassRole'] = 'teacher';
-}
-elseif ($role === 3){
-    $_SESSION['ClassRole'] = 'student';
-}
-
 ?>
     <nav class="navbar py-0 top-navbar navbar-expand-md bg-light justify-content-between navbar-light">
         <div class="navbar-left d-flex justify-content-center">
@@ -139,8 +140,7 @@ elseif ($role === 3){
 
         <div class="navbar-right d-flex justify-content-end">
             <?php
-            if(isset($_SESSION['ClassRole']))
-                if($_SESSION['ClassRole'] === 'creator'){
+            if((isset($_SESSION['ClassRole']) && ($_SESSION['ClassRole'] === 'creator')) || $_SESSION['role'] === 1){
             ?>
             <button type="button" class="btn btn-light" id="btn-setting-class" onclick="Open_change_class()">
                 <span>
@@ -165,7 +165,10 @@ elseif ($role === 3){
                                 <img class=" user-card-img" src="..\<?php echo $user_infor['userIMG']; ?>" alt="Card image">
                             </div>
                             <div class="card-body">
-                                <h4 class="card-title"><?php echo $user_infor['Ho'].' '.$user_infor['Ten']; ?></h4>
+                                <h4 class="card-title"><?php echo $user_infor['Ho'].' '.$user_infor['Ten'];
+                                    if($_SESSION['role']===1) {
+                                        echo '(Admin)';
+                                    }?></h4>
                                 <p class="card-text"><?php echo $user_infor['email']; ?></p>
                                 <p class="d-flex"><a href="#" id="show-user-profile-btn" class="btn btn-primary">See Profile</a></p>
                             </div>

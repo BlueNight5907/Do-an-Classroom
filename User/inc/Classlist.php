@@ -8,7 +8,7 @@
                      style="background-image: url(../<?php echo $Class['AnhDaiDien']?>)"
                     <?php } ?>
                 >
-                    <a href="./ClassView.php?Classroom=<?php print_r($Class['MaLopHoc']) ?>" class="room-info">
+                    <a href="./ClassView.php?Classroom=<?php echo $Class['MaLopHoc'] ?>" class="room-info">
                         <h4 class="class-name"><?php echo $Class['TenLopHoc'] ?></h4>
                         <div class="subject"><?php echo $Class['MonHoc']?></div>
                     </a>
@@ -27,8 +27,8 @@
                         $param = array('s', &$Class['NguoiTao']);
                         $data = $database->query_prepared($sql, $param);
                         $CreatorInfor = $data['data'][0];
-                        if($Class['NguoiTao']!==$Class['username'])
-                        echo $CreatorInfor['Ho'].' '.$CreatorInfor['Ten'];?></span>
+                        if($Class['NguoiTao']!==$_SESSION['username'])
+                            echo $CreatorInfor['Ho'].' '.$CreatorInfor['Ten'];?></span>
                 </div>
                 <div class="room-mid">
                     <img class="avatar"src="

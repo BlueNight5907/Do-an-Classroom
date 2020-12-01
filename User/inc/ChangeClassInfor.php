@@ -15,13 +15,18 @@ if(isset($_POST['TypeUpLoad'])&&isset($_POST['ClassName'])
         if(isset($_FILES["BackgroundIMG"]) && $_FILES["BackgroundIMG"]["error"] == 0)
             include 'UploadFile.php';
         //Kiểm tra xem mã lớp học có tồn tại hay ko
-        $sql = "select count(*) from lophoc where MaLopHoc = ? and NguoiTao = ?";
-        $param = array('ss',&$IDClass,&$creator);
-        $data = $base->is_exists($sql,$param);
+        if($_SESSION['role']===1){
+            $sql = "select count(*) from lophoc where MaLopHoc = ?";
+            $param = array('s',&$IDClass);
+            $data = $base->is_exists($sql,$param);
+        }else{
+            $sql = "select count(*) from lophoc where MaLopHoc = ? and NguoiTao = ?";
+            $param = array('ss',&$IDClass,&$creator);
+            $data = $base->is_exists($sql,$param);
+        }
         if($data === true){
             //Thay đổi thông tin lớp học
             $data = $base->updateClassRoom($classname,$subject,$classroom,$img,$IDClass);
-            print_r($data);
             if( $data['code']===0){
                 $_SESSION['ClassName'] = $classname;
                 $Change_class_announce = 'thành công';

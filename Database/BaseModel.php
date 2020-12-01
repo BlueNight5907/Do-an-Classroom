@@ -153,6 +153,19 @@
 
         //Mời giáo viên
         function invite_teacher($sender,$email,$ClassID){
+            //Xét điều kiện lớp học có tồn tại trong hệ thống hay không,nếu có thì lưu vào biến ClassName
+            $sql = "select TenLopHoc from lophoc where MaLopHoc = ? and activated = b'1'";
+            $stm = $this->db->prepare($sql);
+            $stm->bind_param('s',$ClassID);
+            if(!$stm->execute()){
+                return array('code'=>2,'error'=>'Can not execute command');
+            }
+            $result = $stm->get_result();
+            $data = $result->fetch_assoc();
+            if($data == array()){
+                return array('code'=>1,'error'=>'Lớp học không tồn tại');
+            }
+            $ClassName = $data['TenLopHoc'];
             //Xét điều kiện người dùng có tồn tại trong hệ thống hay không hoặc có phải là học sinh không
             $sql = 'select account.username,vaitro from account inner join phanquyen on account.username = phanquyen.username where email = ? ';
             $stm = $this->db->prepare($sql);
@@ -162,12 +175,12 @@
             }
             $result = $stm->get_result();
             $data = $result->fetch_assoc();
-            if($data == array() || $data['vaitro'] == 3){
-                return array('code'=>2,'error'=>'Không thể thêm người dùng');
+            if(empty($data) || $data['vaitro'] == 3){
+                return array('code'=>1,'error'=>'Không thể thêm người dùng');
             }
             //kiểm tra xem người dùng đã tồn tại trong lớp học chưa
             $user = $data['username'];
-            $sql = "select count(*) from thamgialophoc where username = ? and MaLopHoc = ? and vaitro < 3";
+            $sql = "select count(*),vaitro,activated from thamgialophoc where username = ? and MaLopHoc = ?";
             $stm = $this->db->prepare($sql);
             $stm->bind_param('ss',$user,$ClassID);
             if(!$stm->execute()){
@@ -175,7 +188,8 @@
             }
             $result = $stm->get_result();
             $data = $result->fetch_assoc();
-            //Trường hợp chưa, ta tiến hành thêm vào ở trạng thái chưa kích hoạt
+            //Trường hợp chưa, ta tiến hành thêm vào ở trạng thái chưa kích hoạt, nếu rồi thì thôi
+
             if($data['count(*)'] == 0){
                 //ta thêm tài khoản vào bảng thamgialophoc
                 $id = $this->generateRandomString();
@@ -185,7 +199,11 @@
                 if(!$stm->execute()){
                     return array('code'=>2,'error'=>'Can not execute command');
                 }
+            }elseif ($data['vaitro'] == 3 || $data['activated']===1){
+                return array('code'=>2,'error'=>'Không thể thêm người dùng');
             }
+
+            print_r($data);
             ////Thêm trường hợp cần gửi thư mời vào bảng
             $token = md5($email.'+'.random_int(1000,2000));
             $sql = 'update attend_class_token set token = ? where username = ?';
@@ -194,6 +212,7 @@
             if(!$stm->execute()){
                 return array('code'=>2,'error'=>'Can not execute command');
             }
+
             if($stm->affected_rows == 0){
                 $exp = time() + 3600*24*10;//hết hạn sau 10 ngày
                 $sql = 'insert into attend_class_token values(?,?,?,?)';
@@ -203,13 +222,27 @@
                     return array('code'=>2,'error'=>'Can not execute command');
                 }
             }
-            return $this->send_invite_email($sender,$email,$user,$ClassID,$token);
+            return $this->send_invite_email($sender,$email,$user,$ClassID,$token,$ClassName,'Giáo viên');
         }
 
 
         //Mời học sinh
         function invite_student($sender,$email,$ClassID){
-            //Xét điều kiện người dùng có tồn tại trong hệ thống hay không hoặc có phải là học sinh không
+            //Xét điều kiện lớp học có tồn tại trong hệ thống hay không,nếu có thì lưu vào biến ClassName
+            $sql = "select TenLopHoc from lophoc where MaLopHoc = ? and activated = b'1'";
+            $stm = $this->db->prepare($sql);
+            $stm->bind_param('s',$ClassID);
+            if(!$stm->execute()){
+                return array('code'=>2,'error'=>'Can not execute command');
+            }
+            $result = $stm->get_result();
+            $data = $result->fetch_assoc();
+            if($data == array()){
+                return array('code'=>1,'error'=>'Lớp học không tồn tại');
+            }
+            $ClassName = $data['TenLopHoc'];
+
+            //Xét điều kiện người dùng có tồn tại trong hệ thống hay không
             $sql = 'select account.username,vaitro from account inner join phanquyen on account.username = phanquyen.username where email = ? ';
             $stm = $this->db->prepare($sql);
             $stm->bind_param('s',$email);
@@ -218,8 +251,8 @@
             }
             $result = $stm->get_result();
             $data = $result->fetch_assoc();
-            if($data == array()){
-                return array('code'=>2,'error'=>'Không thể thêm người dùng');
+            if(empty($data)){
+                return array('code'=>1,'error'=>'Không thể thêm người dùng');
             }
             //kiểm tra xem người dùng đã tồn tại trong lớp học chưa
             $user = $data['username'];
@@ -231,9 +264,9 @@
             }
             $result = $stm->get_result();
             $data = $result->fetch_assoc();
-            //Trường hợp chưa, ta tiến hành thêm vào ở trạng thái chưa kích hoạt
 
-            if($data['count(*)'] == 0){
+            //Trường hợp chưa, ta tiến hành thêm vào ở trạng thái chưa kích hoạt nếu rồi mà đang là một giáo viên thì không tiến hành thêm vào
+            if($data['count(*)'] === 0){
                 //ta thêm tài khoản vào bảng thamgialophoc
                 $id = $this->generateRandomString();
                 $sql = "insert into thamgialophoc values(?,?,?,3,b'0')";
@@ -243,7 +276,7 @@
                     return array('code'=>2,'error'=>'Can not execute command');
                 }
             }else if($data['vaitro']!==3)
-                return array('code'=>2,'error'=>'Không thể thêm người dùng');
+                return array('code'=>1,'error'=>'Không thể thêm người dùng');
 
             //Thêm trường hợp cần gửi thư mời vào bảng
             $token = md5($email.'+'.random_int(1000,2000));
@@ -262,10 +295,68 @@
                     return array('code'=>2,'error'=>'Can not execute command');
                 }
             }
-            return $this->send_invite_email($sender,$email,$user,$ClassID,$token);
+            return $this->send_invite_email($sender,$email,$user,$ClassID,$token,$ClassName,'Sinh viên');
         }
 
+        function student_attend_class_by_code($username,$fullname,$classID){
+            $teacheremail = '';
+            $className = '';
+            //Kiem tra xem lop hoc co ton tai khong, neu co thi lay ra email cua giao vien
+            $sql = "select account.email,TenLopHoc from lophoc inner join account on account.username = lophoc.NguoiTao where MaLopHoc = ? and lophoc.activated = b'1'";
+            $stm = $this->db->prepare($sql);
+            $stm->bind_param('s',$classID);
+            if(!$stm->execute()){
+                return array('code'=>2,'error'=>'Can not execute command');
+            }
+            $result = $stm->get_result();
+            $data = $result->fetch_assoc();
+            if($data == array()){
+                return array('code'=>1,'error'=>'Lớp học không tồn tại');
+            }
+            else{
+                $teacheremail = $data['email'];
+                $className = $data['TenLopHoc'];
+            }
+            //kiem tra xem sinh viên đó đã tồn tại trong lóp học đó chưa
 
+            $sql = "select * from thamgialophoc where MaLopHoc = ? and username = ?";
+            $stm = $this->db->prepare($sql);
+            $stm->bind_param('ss',$classID,$username);
+            if(!$stm->execute()){
+                return array('code'=>2,'error'=>'Can not execute command');
+            }
+            $result = $stm->get_result();
+            $data = $result->fetch_assoc();
+            if($data == array()){
+                return array('code'=>1,'error'=>'Người dùng đã tồn tại trong lớp học');
+            }
+
+
+            //Kiem tra xem sinh vien da gui yeu cau tham gia lop hoc chua neu chua thi tao moi
+            $token = md5($username.'+'.random_int(1000,2000));
+            $sql = 'select * from xetsvthamgialophoc where username = ? and MaLopHoc = ?';
+            $stm = $this->db->prepare($sql);
+            $stm->bind_param('ss',$username,$classID);
+            if(!$stm->execute()){
+                return array('code'=>2,'error'=>'Can not execute command');
+            }
+            $result = $stm->get_result();
+            $data = $result->fetch_assoc();
+            if($data == array()){
+                $sql = 'insert into xetsvthamgialophoc values(?,?)';
+                $stm = $this->db->prepare($sql);
+                $stm->bind_param('ss',$username,$classID);
+                if(!$stm->execute()){
+                    return array('code'=>2,'error'=>'Can not execute command');
+                }
+            }
+
+            $mail_state = $this->send_announce_email($teacheremail,$fullname,$className);
+            if($mail_state == true)
+                return array('code'=>0,'success'=>'all success');
+            else
+                return array('code'=>2,'error'=>'Can not send email');
+        }
 
         //Hàm để reset pass
         function reset_password($email){
@@ -338,7 +429,7 @@
             }
         }
         //------------Email chấp nhận tham gia lớp học
-        function send_invite_email($sender,$email,$user,$classID,$token){
+        function send_invite_email($sender,$email,$user,$classID,$token,$className,$role){
 
             $mail = new PHPMailer(true);
 
@@ -371,8 +462,52 @@
 
                 // Content
                 $mail->isHTML(true);                                  // Set email format to HTML
-                $mail->Subject = 'Khôi phục mật khẩu của bạn';
-                $mail->Body    = "Click <a href='http://localhost/AcceptInvite.php?username=$user&classID=$classID&token=$token'>vào đây</a> để tham gia lớp học";
+                $mail->Subject = 'Lời mời tham gia lớp học';
+                $mail->Body    = "Bạn được mời tham gia vào lớp học <a href='http://localhost/AcceptInvite.php?user=$user&classID=$classID&token=$token'>$className</a> với vai trò $role";
+                //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+                $mail->send();
+
+                return true;
+            } catch (Exception $e) {
+                return false;
+            }
+        }
+        function send_announce_email($email,$studentfullname,$className){
+
+            $mail = new PHPMailer(true);
+
+            try {
+                //Server settings
+                $mail->SMTPDebug = 0; //0 = off (for production use, No debug messages) debugging: 1 = errors and messages, 2 = messages only
+                //$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+                $mail->isSMTP();
+                $mail->CharSet = "UTF-8"; // Send using SMTP
+                $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
+                $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+                $mail->Username   = 'webprojectclassroom@gmail.com';                     // SMTP username
+                $mail->Password   = 'tepnkvzgwljzcayy';                               // SMTP password
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+                $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+
+                //Recipients
+                $mail->setFrom('webprojectclassroom@gmail.com', 'Hệ thống');
+                $mail->addAddress($email, 'Người nhận');     // Add a recipient
+                /*
+                $mail->addAddress('ellen@example.com');               // Name is optional
+                $mail->addReplyTo('info@example.com', 'Information');
+                $mail->addCC('cc@example.com');
+                $mail->addBCC('bcc@example.com');
+                */
+
+                // Attachments
+                //$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+                //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+
+                // Content
+                $mail->isHTML(true);                                  // Set email format to HTML
+                $mail->Subject = 'Thông báo có sinh viên tham gia lớp học';
+                $mail->Body    = "Sinh viên <span style='color:red'>$studentfullname</span> vừa có có yêu cầu tham gia lớp học $className của bạn";
                 //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
                 $mail->send();

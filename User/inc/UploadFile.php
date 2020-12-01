@@ -65,7 +65,6 @@ $base = new BaseModel();
 // Xác nhận phần mở rộng của file
 $firstparth = pathinfo($filename,PATHINFO_FILENAME).$base->generateRandomString();
 $ext = pathinfo($filename, PATHINFO_EXTENSION);
-print_r($ext);
 if(!array_key_exists($ext, $allowed)) die("Error: Vui lòng chọn đúng định dạng file.");
 // Xác nhận kích thước file - tối đa 5MB
 $maxsize = 10 * 1024 * 1024;
@@ -78,9 +77,6 @@ if(in_array($filetype, $allowed)){
     } else{
         move_uploaded_file($_FILES["BackgroundIMG"]["tmp_name"], "../".$root.$firstparth.'.'.$ext);
         $img = $root.$firstparth.'.'.$ext;
-        echo "File của bạn đã upload thành công.";
     }
 }
-if(!empty($file_upload_err))
-    var_dump($file_upload_err);
 ?>
