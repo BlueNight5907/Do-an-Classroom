@@ -14,7 +14,7 @@
                     </a>
                     <div class="task">
                         <i class="fas fa-ellipsis-v"></i>
-                        <div class="active">
+                        <div class="active-tag">
                             <ul class="option">
                                 <li>Move</li>
                                 <li>Unenroll</li>

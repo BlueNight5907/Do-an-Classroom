@@ -31,5 +31,6 @@ else{
         $data = $database->query_prepared($sql, $param);
     }
     $ClassInfor = $data['data'];
+    $_SESSION['allclass'] = $ClassInfor;
 }
 

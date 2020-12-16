@@ -1,3 +1,4 @@
+
 <input class="nav__input" type="checkbox" id="nav-item-check">
 
 <label for="nav-item-check" class="nav__overlay"></label>
@@ -20,39 +21,41 @@
     <div class="tab__task">
         <ul class="tab-list">
             <li class="tab_item mb-1">
-                <a href="Home.php" class="tab_link sidebar-bg-custom">Lớp học</a>
+                <a href="Home.php" class="tab_link sidebar-bg-custom">Home</a>
             </li>
             <li class="tab_item mb1">
-                <a href="" class="tab_link sidebar-bg-custom">Lịch</a>
+                <a href="" class="tab_link sidebar-bg-custom">Công việc</a>
             </li>
         </ul>
     </div>
     <div class="sidebar-tab">
-        <h3 class="text-primary">Tham gia</h3>
+        <h3 class="text-primary">Lớp học</h3>
         <ul class="sidebar-list">
+        <?php
+        if(isset($_SESSION['allclass'])){
+            foreach ($_SESSION['allclass'] as $class){
+            ?>
             <li class="sidebar-item sidebar-bg-custom">
-                <a href="" class="sidebar-link">
+                <a href="ClassView.php?Classroom=<?php echo $class['MaLopHoc'] ?>" class="sidebar-link">
                     <div class="sidebar-link-item">
-                        <h5 class="sidebar-class-name">HK1_2020_504008_Cấu trúc dữ liệu và giải thuật_N3</h5>
-                        <div class="sidebar-teacher-name">Trần Hồ Lệ Phương Đan</div>
+                        <h5 class="sidebar-class-name"><?php echo $class['TenLopHoc'] ?></h5>
+                        <div class="sidebar-teacher-name"><?php
+                            $database = new BaseModel();
+                            $sql = 'select userIMG,Ho,Ten from account where username =?';
+                            $param = array('s', &$class['NguoiTao']);
+                            $data = $database->query_prepared($sql, $param);
+                            $CreatorInfor = $data['data'][0];
+                            if($class['NguoiTao']!==$_SESSION['username'])
+                                echo $CreatorInfor['Ho'].' '.$CreatorInfor['Ten'];
+                        ?></div>
                     </div>
                 </a>
             </li>
+            <?php
+            }
+        }
+        ?>
         </ul>
     </div>
     <div class="line"></div>
-    <div class="sidebar-tab">
-        <ul class="sidebar-list">
-            <h3 class="text-primary">Dạy học</h3>
-            <li class="sidebar-item sidebar-bg-custom">
-                <a href="" class="sidebar-link">
-                    <div class="sidebar-link-item">
-                        <h5 class="sidebar-class-name">HK1_2020_504008_Cấu trúc dữ liệu và giải thuật_N3</h5>
-                        <div class="sidebar-teacher-name">Trần Hồ Lệ Phương Đan</div>
-                    </div>
-                </a>
-            </li>
-
-        </ul>
-    </div>
 </div>

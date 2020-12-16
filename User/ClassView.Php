@@ -21,7 +21,7 @@ include_once '../vendor/autoload.php';
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- My style -->
     <link rel="stylesheet" href="../style.css">
-    <title>Home</title>
+    <title>Class view</title>
 </head>
 <body>
 <?php
@@ -111,7 +111,16 @@ else{
         <div id="navbar-function" class="col-lg-6 bg-light mr-1">
             <div class="function-button-group d-flex justify-content-center">
                 <a href="./ClassView.Php?Action=ClassStream">
-                    <div class="navbar-brand function-button stream-button px-4 pt-3">
+                    <div class="navbar-brand function-button stream-button px-4 pt-3" <?php
+                    if(isset($_SESSION['Action'])){
+                        if($_SESSION['Action']==='ClassStream'){
+                            echo 'id = ActionChoose ';
+                        }
+                    }
+                    else{
+                        echo 'id = ActionChoose ';
+                    }
+                    ?>>
                         Luồng
                     </div>
                 </a>
@@ -121,16 +130,25 @@ else{
                     </div>
                 </a>
                 <a href="./ClassView.Php?Action=ClassPeople">
-                    <div class="navbar-brand function-button people-button px-4 pt-3">
+                    <div class="navbar-brand function-button people-button px-4 pt-3" <?php
+                    if(isset($_SESSION['Action']))
+                        if($_SESSION['Action']==='ClassPeople')
+                            echo 'id = ActionChoose ';
+                    ?>>
                         Mọi người
                     </div>
                 </a>
-                <a href="#">
-                    <div class="navbar-brand function-button mark-button px-4 pt-3">
-                        Số điểm
-                    </div>
-                </a>
-
+                <?php
+                if($_SESSION['ClassRole']!=='student'){
+                    ?>
+                    <a href="#">
+                        <div class="navbar-brand function-button mark-button px-4 pt-3">
+                            Số điểm
+                        </div>
+                    </a>
+                    <?php
+                }
+                ?>
             </div>
         </div>
 
@@ -186,7 +204,16 @@ else{
         <div id="navbar-function-under" class="col-lg-6 bg-light mr-1">
             <div class="function-button-group d-flex justify-content-center">
                 <a href="./ClassView.Php?Action=ClassStream">
-                    <div class="navbar-brand function-button stream-button px-4 pt-3">
+                    <div class="navbar-brand function-button stream-button px-4 pt-3" <?php
+                    if(isset($_SESSION['Action'])){
+                        if($_SESSION['Action']==='ClassStream'){
+                            echo 'id = ActionChoose ';
+                        }
+                    }
+                    else{
+                        echo 'id = ActionChoose ';
+                    }
+                    ?>>
                         Luồng
                     </div>
                 </a>
@@ -196,15 +223,25 @@ else{
                     </div>
                 </a>
                 <a href="./ClassView.Php?Action=ClassPeople">
-                    <div class="navbar-brand function-button people-button px-4 pt-3">
+                    <div class="navbar-brand function-button people-button px-4 pt-3" <?php
+                    if(isset($_SESSION['Action']))
+                        if($_SESSION['Action']==='ClassPeople')
+                            echo 'id = ActionChoose ';
+                    ?>>
                         Mọi người
                     </div>
                 </a>
-                <a href="#">
-                    <div class="navbar-brand function-button mark-button px-4 pt-3">
-                        Số điểm
-                    </div>
-                </a>
+                <?php
+                if($_SESSION['ClassRole']!=='student'){
+                    ?>
+                    <a href="#">
+                        <div class="navbar-brand function-button mark-button px-4 pt-3">
+                            Số điểm
+                        </div>
+                    </a>
+                    <?php
+                }
+                ?>
 
             </div>
         </div>

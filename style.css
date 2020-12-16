@@ -104,7 +104,7 @@ div.task:hover {
     cursor: pointer;
 }
 
-div.active {
+div.active-tag {
     display: none;
     position: absolute;
     right: 0;
@@ -442,6 +442,15 @@ div.btn-input {
     div.notices {
         display: none;
     }
+    .table td{
+        max-width: 5rem;
+    }
+    .set-permission .btn{
+        min-width: 106px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
 }
 .form-group input.form-input:focus{
     border: #348dfa solid 2px;
@@ -618,10 +627,18 @@ body{
     min-width: 60px;
     height: 40px;
 }
-.table td{
+.table td, .table th{
     vertical-align: baseline;
-    padding: 0;
-    max-width: 3rem;
+    padding: 0.25rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 50px;
+}
+.table .set-permission{
+    white-space: normal;
+    max-width: 300px;
+    flex-wrap: wrap;
 }
 .teacher-list, .student-list{
     height: 50vh;
@@ -639,14 +656,16 @@ div.modal#confirm-remove-people-Modal, div.modal#confirm-remove-class-Modal{
     height: 65px;
     position: sticky;
     top: 0px;
-    width: 100vw;
+    width: 100%;
     z-index: 2;
 }
 @media  only screen and (max-width:1000px){
     #navbar-function{
         display: none;
     }
-
+    .table td{
+        max-width: 5rem;
+    }
 }
 .navbar-right{
     align-items: center;
@@ -668,14 +687,34 @@ div.modal#confirm-remove-people-Modal, div.modal#confirm-remove-class-Modal{
     #navbar-function-under{
         display: none;
     }
+    .set-permission .btn{
+        min-width: 120px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
 }
-@media  only screen and (max-width:400px){
+@media  only screen and (max-width:470px){
     .function-button.px-4{
         padding-left: 0.5rem!important;
         padding-right: 0.5rem!important;
     }
     td div.btn-group{
         padding-left:10%!important;
+    }
+    .set-permission .btn{
+        min-width: 50px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+    .table .set-permission {
+        white-space: normal;
+        max-width: 70px;
+        flex-wrap: wrap;
+    }
+    .table td{
+        max-width: 5rem;
     }
 }
 #show-user-profile-btn{
@@ -901,6 +940,7 @@ label svg{
 
 body{
     min-height: 100vh;
+    max-width: 100vw;
 }
 .navbar-right #btn-setting-class{
     min-width:56px!important;
@@ -942,4 +982,8 @@ form div input{
 .btn-removing-student{
     fill: #ac0c0c;
     border: #ac0c0c 1px solid;
+}
+.menu-function{
+    right: -50px;
+    left: auto;
 }

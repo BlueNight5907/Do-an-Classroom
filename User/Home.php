@@ -61,18 +61,41 @@ include_once '../vendor/autoload.php';
         </div>
         <div class="navbar-right d-flex justify-content-end">
             <div class="dropdown">
-                <button type="button" class="btn btn-custom py-1 px-0" data-toggle="dropdown">
 
-                    <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-plus">
-                        <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                    </svg>
+                <?php
+                if($_SESSION['role']===3){
+                ?>
+                    <button type="button" class="btn btn-custom py-1 px-0" onclick="Open_attend_class()" data-toggle="dropdown">
 
-                </button>
-                <div class="dropdown-menu add">
-                    <a class="dropdown-item bg-light" onclick="Open_create_class()">Tạo lớp học</a>
-                    <a class="dropdown-item bg-light"  onclick="Open_attend_class()">Tham gia lớp học</a>
-                    <a class="dropdown-item bg-light"  >Quản lý tài khoản</a>
-                </div>
+                        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-plus">
+                            <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                        </svg>
+
+                    </button>
+                <?php
+                }else{
+                ?>
+                    <button type="button" class="btn btn-custom py-1 px-0" data-toggle="dropdown">
+
+                        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-plus">
+                            <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                        </svg>
+
+                    </button>
+                    <div class="dropdown-menu menu-function add">
+                        <a class="dropdown-item bg-light" onclick="Open_create_class()">Tạo lớp học</a>
+                        <a class="dropdown-item bg-light"  onclick="Open_attend_class()">Tham gia lớp học</a>
+                        <?php
+                        if($_SESSION['role']===1){
+                        ?>
+                        <a class="dropdown-item bg-light" data-toggle="modal" data-target="#decentralization">Phân quyền người dùng</a>
+                        <?php
+                        }
+                        ?>
+                    </div>
+                <?php
+                }
+                ?>
             </div>
             <div class="dropdown" id="user-dropdown">
                 <div class="user-avatar mx-3" id="dropdownUserProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -105,36 +128,43 @@ include_once '../vendor/autoload.php';
 <?php
     include 'SideBar.php';
 ?>
+<?php
+if($_SESSION['role']!==3){
+    ?>
     <!--Tao lop hoc-->
-<div class="create-class-form-container p-5">
-    <br>
-    <br>
-    <form class="create-class-form bg-light col-7 mx-auto border rounded rounded-5 p-4 border-primary" action ="#" method="post" enctype="multipart/form-data">
-        <div class="create-class-form-header"><h2 class="text-primary">Tạo lớp học</h2></div>
-        <div class="form-group">
-            <label for="ClassName">Tên lớp học</label>
-            <input type="text" name="ClassName"  class="form-control" id="ClassName" aria-describedby="emailHelp" placeholder="Tên lớp học">
-            <small id="ClassName-help" class="form-text text-muted">Bạn cần nhập tên lớp học.</small>
-        </div>
-        <div class="form-group">
-            <label for="Object">Môn học</label>
-            <input type="text" class="form-control" name="Subject" id="Subject" placeholder="Môn học">
-        </div>
-        <div class="form-group">
-            <label for="Room">Phòng</label>
-            <input type="text" class="form-control" name="Room" id ="Room" placeholder="Phòng học">
-        </div>
-        <div class="form-group">
-            <label for="BackgroundIMG">Ảnh nền của lớp học</label>
-            <input type="file" class="form-control" name="BackgroundIMG" id="BackgroundIMG" placeholder="img">
-        </div>
-        <div class="form-button justify-content-between">
-            <button type="reset" class="btn btn-light border border-primary" onclick="Close_create_class()">Hủy</button>
-            <button type="submit" name="TypeUpLoad" value="BackgroundClass" class="btn mt-1 btn-primary">Tạo lớp học</button>
-        </div>
-    </form>
-</div>
-    <!--Them lop hoc-->
+    <div class="create-class-form-container p-5">
+        <br>
+        <br>
+        <form class="create-class-form bg-light col-7 mx-auto border rounded rounded-5 p-4 border-primary" action ="#" method="post" enctype="multipart/form-data">
+            <div class="create-class-form-header"><h2 class="text-primary">Tạo lớp học</h2></div>
+            <div class="form-group">
+                <label for="ClassName">Tên lớp học</label>
+                <input type="text" name="ClassName"  class="form-control" id="ClassName" aria-describedby="emailHelp" placeholder="Tên lớp học">
+                <small id="ClassName-help" class="form-text text-muted">Bạn cần nhập tên lớp học.</small>
+            </div>
+            <div class="form-group">
+                <label for="Object">Môn học</label>
+                <input type="text" class="form-control" name="Subject" id="Subject" placeholder="Môn học">
+            </div>
+            <div class="form-group">
+                <label for="Room">Phòng</label>
+                <input type="text" class="form-control" name="Room" id ="Room" placeholder="Phòng học">
+            </div>
+            <div class="form-group">
+                <label for="BackgroundIMG">Ảnh nền của lớp học</label>
+                <input type="file" class="form-control" name="BackgroundIMG" id="BackgroundIMG" placeholder="img">
+            </div>
+            <div class="form-button justify-content-between">
+                <button type="reset" class="btn btn-light border border-primary" onclick="Close_create_class()">Hủy</button>
+                <button type="submit" name="TypeUpLoad" value="BackgroundClass" class="btn mt-1 btn-primary">Tạo lớp học</button>
+            </div>
+        </form>
+    </div>
+    <?php
+}
+?>
+
+    <!--Tham gia lop hoc-->
     <div class="attend-class">
         <header class="join-class-header bg-light">
             <div class="ml-2 user-avatar bg-light exit">
@@ -191,7 +221,7 @@ include_once '../vendor/autoload.php';
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroup-sizing-default">Code</span>
                         </div>
-                        <input type="text" name="ClassCode" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                        <input type="text" name="ClassCode" id="class-code" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
                     </div>
                 </div>
             </div>
@@ -201,7 +231,7 @@ include_once '../vendor/autoload.php';
                     <h4>Để tham gia vào lớp học bạn cần:</h4>
                     <ul class="list-notice">
                         <li>Sử dụng tài khoản được ủy quyền</li>
-                        <li>Sử dụng class code với 5-7 kí tự là chữ hoặc số, ký tự không hợp lệ sẽ không được chấp nhận</li>
+                        <li>Sử dụng class code với các kí tự là chữ hoặc số, ký tự không hợp lệ sẽ không được chấp nhận</li>
                     </ul>
                 </div>
             </div>
@@ -212,21 +242,21 @@ include_once '../vendor/autoload.php';
         <div class="container-fluid justify-content-between">
             <div class="options-active">
                 <div class="to-do">
-                    <a href="#">
+                    <a href="Home.php">
                         <span><i class="far fa-list-alt"></i></span>
-                        <span>To-do</span>
+                        <span>Home</span>
                     </a>
                 </div>
                 <div class="calendar">
                     <a href="#">
                         <span><i class="far fa-calendar"></i></span>
-                        <span>Calendar</span>
+                        <span>Công việc</span>
                     </a>
                 </div>
             </div>
             <form action="" method="get" class="form-inline my-2 my-lg-0">
-                <input name="search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn border btn-search border-success btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                <input name="search" class="form-control mr-sm-2" type="search" placeholder="Tìm kiếm" aria-label="Search">
+                <button class="btn border btn-search border-success btn-outline-success my-2 my-sm-0" type="submit">Tìm kiếm</button>
             </form>
         </div>
 
@@ -254,6 +284,146 @@ include_once '../vendor/autoload.php';
     </footer>
 
 
+<?php
+if($_SESSION['role']===1){
+    $base = new BaseModel();
+    $Admins=array();
+    $Teachers=array();
+    $Students = array();
+    $data = $base->get_all_user();
+    if($data['code']===0){
+        foreach ($data['data'] as &$someone) {
+            if($someone['vaitro']==1){
+                array_push($Admins, $someone);
+            }
+            elseif($someone['vaitro']==2){
+                array_push($Teachers, $someone);
+            }
+            elseif($someone['vaitro']==3){
+                array_push($Students, $someone);
+            }
+        }
+    }
+?>
+
+    <!-- Modal phân quyền người dùng-->
+    <div class="modal fade bd-example-modal-lg" id="decentralization" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#admin">Admin</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#teacher">Giáo viên</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#students">Học sinh</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <!--Admin Tab panes -->
+                    <div id="admin" class="container tab-pane active"><br>
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>Tên</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                            foreach ($Admins as $admin){
+                            ?>
+                                <tr>
+                                    <td><?php echo $admin['HoTen'] ?></td>
+                                    <td><?php echo $admin['username'] ?></td>
+                                    <td><?php echo $admin['email']?></td>
+                                </tr>
+
+                            <?php
+                            }
+                            ?>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!--Teacher Tab -->
+                    <div id="teacher" class="container tab-pane fade"><br>
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>Tên</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                            foreach ($Teachers as $teacher){
+                            ?>
+
+                                <tr>
+                                    <td><?php echo $teacher['HoTen'] ?></td>
+                                    <td><?php echo $teacher['username'] ?></td>
+                                    <td><?php echo $teacher['email'] ?></td>
+                                    <td <?php echo 'id ="'.$teacher['username'].'"' ?> class="set-permission d-flex justify-content-center">
+                                        <button type="button" class="mr-1 btn mt-1 btn-outline-primary set-admin-btn">Set Admin</button>
+                                        <button type="button" class="mr-1 btn mt-1 btn-outline-info set-student-btn">Set Student</button>
+                                    </td>
+                                </tr>
+
+                            <?php
+                            }
+                            ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!--Student Tab panes -->
+                    <div id="students" class="container tab-pane fade"><br>
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>Tên</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                            foreach ($Students as $student){
+                            ?>
+                                <tr>
+                                    <td><?php echo $student['HoTen'] ?></td>
+                                    <td><?php echo $student['username'] ?></td>
+                                    <td><?php echo $student['email'] ?></td>
+                                    <td <?php echo 'id ="'.$student['username'].'"' ?> class="set-permission d-flex justify-content-center">
+                                        <button type="button" class="mr-1 mt-1 btn btn-outline-primary set-admin-btn">Set Admin</button>
+                                        <button type="button" class="mr-1 mt-1 btn btn-outline-info set-teacher-btn">Set Teacher</button>
+                                    </td>
+                                </tr>
+                            <?php
+                            }
+                            ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php
+}
+?>
 
 
 

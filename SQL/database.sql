@@ -44,19 +44,19 @@ CREATE TABLE `account` (
 
 -- Do du lieu
 insert into `account` values
-('Nguyen Van','Huy','2000/11/18','henrypoter22@gmail.com','admin','$2y$10$4kHhPKNZNR7ch0B/MWT4cuqG2BO/Ra9jV6Q9PzaXaLZm.SUtUZUqa',b'1','admin','Public/img/user2.jpg'),
-('Nguyen Van','Hoa','2000/11/18','yeuthatxa136@gmail.com','admin1','$2y$10$4kHhPKNZNR7ch0B/MWT4cuqG2BO/Ra9jV6Q9PzaXaLZm.SUtUZUqa',b'1','admin','Public/img/user.png'),
-('Nguyen Van','Chuong','2000/11/18','henrypoter2222@gmail.com','admin2','$2y$10$4kHhPKNZNR7ch0B/MWT4cuqG2BO/Ra9jV6Q9PzaXaLZm.SUtUZUqa',b'1','admin','Public/img/user3.png'),
-('Nguyen Van','Teo','2000/11/18','henrypoter2233@gmail.com','admin3','$2y$10$4kHhPKNZNR7ch0B/MWT4cuqG2BO/Ra9jV6Q9PzaXaLZm.SUtUZUqa',b'1','admin','Public/img/user4.jpg'),
-('Nguyen Van','Hot vit lon','2000/11/18','henrypoter2244@gmail.com','admin4','$2y$10$4kHhPKNZNR7ch0B/MWT4cuqG2BO/Ra9jV6Q9PzaXaLZm.SUtUZUqa',b'1','123456','Public/img/user5.jpg'),
-('Nguyen Van','Long','2000/11/18','henrypoter2255@gmail.com','admin5','$2y$10$4kHhPKNZNR7ch0B/MWT4cuqG2BO/Ra9jV6Q9PzaXaLZm.SUtUZUqa',b'1','admin','Public/img/user.jfif'),
-('Nguyen Van','Hóa','2000/11/18','henrypoter2266@gmail.com','admin6','$2y$10$4kHhPKNZNR7ch0B/MWT4cuqG2BO/Ra9jV6Q9PzaXaLZm.SUtUZUqa',b'1','admin','Public/img/user.jfif'),
-('Lê Văn','Quý','2000/11/18','abcd@gmail.com','usertest1','$2y$10$lZ9o3DjAgprEGvgQcmpdzu0HX8IjStMzZKlOSlqgvXH2uthmpkvky',b'1','noname123456','Public/img/user5.jpg'),
-('Lê Thị','Mai','2000/11/18','abcde@gmail.com','usertest2','$2y$10$lZ9o3DjAgprEGvgQcmpdzu0HX8IjStMzZKlOSlqgvXH2uthmpkvky',b'1','noname123456','Public/img/user.jfif'),
-('Trần Trọng','Tín','2000/11/18','abcdef@gmail.com','usertest3','$2y$10$lZ9o3DjAgprEGvgQcmpdzu0HX8IjStMzZKlOSlqgvXH2uthmpkvky',b'1','noname123456','Public/img/user4.jpg'),
-('Hoàng Thị','Xuyến','2000/11/18','abcdefgh@gmail.com','usertest4','$2y$10$lZ9o3DjAgprEGvgQcmpdzu0HX8IjStMzZKlOSlqgvXH2uthmpkvky',b'1','noname123456','Public/img/user.jfif'),
-('Trần Ngọc','Đào','2000/11/18','abcde123@gmail.com','usertest5','$2y$10$lZ9o3DjAgprEGvgQcmpdzu0HX8IjStMzZKlOSlqgvXH2uthmpkvky',b'1','noname123456','Public/img/user3.png'),
-('Đào Văn','Mạnh','2000/11/18','abcde456@gmail.com','usertest6','$2y$10$lZ9o3DjAgprEGvgQcmpdzu0HX8IjStMzZKlOSlqgvXH2uthmpkvky',b'1','noname123456','Public/img/user.jfif');
+(N'Nguyen Van',N'Huy','2000/11/18','henrypoter222@gmail.com','admin','$2y$10$4kHhPKNZNR7ch0B/MWT4cuqG2BO/Ra9jV6Q9PzaXaLZm.SUtUZUqa',b'1','admin','Public/img/user2.jpg'),
+(N'Nguyen Van',N'Hoa','2000/11/18','yeuthatxa136@gmail.com','admin1','$2y$10$4kHhPKNZNR7ch0B/MWT4cuqG2BO/Ra9jV6Q9PzaXaLZm.SUtUZUqa',b'1','admin','Public/img/user.png'),
+(N'Nguyen Van',N'Chuong','2000/11/18','henrypoter2222@gmail.com','admin2','$2y$10$4kHhPKNZNR7ch0B/MWT4cuqG2BO/Ra9jV6Q9PzaXaLZm.SUtUZUqa',b'1','admin','Public/img/user3.png'),
+(N'Nguyen Van',N'Teo','2000/11/18','henrypoter2233@gmail.com','admin3','$2y$10$4kHhPKNZNR7ch0B/MWT4cuqG2BO/Ra9jV6Q9PzaXaLZm.SUtUZUqa',b'1','admin','Public/img/user4.jpg'),
+(N'Trần Thị',N'Hà','2000/11/18','henrypoter2244@gmail.com','admin4','$2y$10$4kHhPKNZNR7ch0B/MWT4cuqG2BO/Ra9jV6Q9PzaXaLZm.SUtUZUqa',b'1','123456','Public/img/user5.jpg'),
+(N'Nguyen Van',N'Long','2000/11/18','henrypoter2255@gmail.com','admin5','$2y$10$4kHhPKNZNR7ch0B/MWT4cuqG2BO/Ra9jV6Q9PzaXaLZm.SUtUZUqa',b'1','admin','Public/img/user.jfif'),
+(N'Nguyen Van',N'Hóa','2000/11/18','henrypoter2266@gmail.com','admin6','$2y$10$4kHhPKNZNR7ch0B/MWT4cuqG2BO/Ra9jV6Q9PzaXaLZm.SUtUZUqa',b'1','admin','Public/img/user.jfif'),
+(N'Lê Văn','Quý',N'2000/11/18','abcd@gmail.com','usertest1','$2y$10$lZ9o3DjAgprEGvgQcmpdzu0HX8IjStMzZKlOSlqgvXH2uthmpkvky',b'1','noname123456','Public/img/user5.jpg'),
+(N'Lê Thị','Mai',N'2000/11/18','abcde@gmail.com','usertest2','$2y$10$lZ9o3DjAgprEGvgQcmpdzu0HX8IjStMzZKlOSlqgvXH2uthmpkvky',b'1','noname123456','Public/img/user.jfif'),
+(N'Trần Trọng',N'Tín','2000/11/18','abcdef@gmail.com','usertest3','$2y$10$lZ9o3DjAgprEGvgQcmpdzu0HX8IjStMzZKlOSlqgvXH2uthmpkvky',b'1','noname123456','Public/img/user4.jpg'),
+(N'Hoàng Thị',N'Xuyến','2000/11/18','abcdefgh@gmail.com','usertest4','$2y$10$lZ9o3DjAgprEGvgQcmpdzu0HX8IjStMzZKlOSlqgvXH2uthmpkvky',b'1','noname123456','Public/img/user.jfif'),
+(N'Trần Ngọc',N'Đào','2000/11/18','abcde123@gmail.com','usertest5','$2y$10$lZ9o3DjAgprEGvgQcmpdzu0HX8IjStMzZKlOSlqgvXH2uthmpkvky',b'1','noname123456','Public/img/user3.png'),
+(N'Đào Văn',N'Mạnh','2000/11/18','abcde456@gmail.com','usertest6','$2y$10$lZ9o3DjAgprEGvgQcmpdzu0HX8IjStMzZKlOSlqgvXH2uthmpkvky',b'1','noname123456','Public/img/user.jfif');
 
 
 
@@ -116,12 +116,12 @@ CREATE TABLE LopHoc (
 
 -- Do du lieu
 insert into LopHoc values
-('admin1','1ab','Lop hoc tinh yeu',N'Đạo đức','B102','Public/backgroundIMG/background.jpg',b'1'),
-('admin','2ab','Lop hoc tinh ban',N'Đạo đức','B103','Public/backgroundIMG/background2.jpg',b'1'),
-('admin2','3ab','Lop hoc tinh thuong',N'Đạo đức','B104','Public/backgroundIMG/background3.png',b'1'),
-('admin1','4ab','Lop hoc tinh doi',N'Đạo đức','B105','Public/backgroundIMG/background4.jpg',b'1'),
-('admin2','5ab','Lop hoc tinh ngay tho',N'Đạo đức','B106','Public/backgroundIMG/background5.jpg',b'1'),
-('admin2','6ab','Lop hoc tinh gia dinh',N'Đạo đức','B107','Public/backgroundIMG/background6.jpg',b'1');
+('admin1','1ab',N'LAP_TRINH_WEB_VA_UD_HK1_2020',N'Lập trình web','B102','Public/backgroundIMG/background.jpg',b'1'),
+('admin','2ab',N'Kỹ năng viết và trình bày',N'Kỹ năng','B103','Public/backgroundIMG/background2.jpg',b'1'),
+('admin2','3ab',N'Cấu trúc dữ liệu và giải thuật',N'CTDL1','B104','Public/backgroundIMG/background3.png',b'1'),
+('admin1','4ab',N'VOVINAM',N'Thể chất',N'Nhà thi đấu','Public/backgroundIMG/background4.jpg',b'1'),
+('admin2','5ab',N'Bơi lội',N'Thể chất','B106','Public/backgroundIMG/background5.jpg',b'1'),
+('admin2','6ab',N'Xác suất thống kê',N'Toán','B107','Public/backgroundIMG/background6.jpg',b'1');
 
 
 -- -----------------------------------------------------
@@ -154,12 +154,6 @@ insert into ThamGiaLopHoc values
 ('11','1ab','admin3',2,b'1'),
 ('12','1ab','admin4',3,b'1'),
 ('13','1ab','admin5',3,b'1'),
-('14','1ab','usertest1',3,b'1'),
-('15','1ab','usertest2',3,b'1'),
-('16','1ab','usertest3',3,b'1'),
-('17','1ab','usertest4',3,b'1'),
-('18','1ab','usertest5',3,b'1'),
-('19','1ab','usertest6',3,b'1'),
 ('20','2ab','usertest1',3,b'1'),
 ('21','2ab','usertest2',3,b'1'),
 ('22','2ab','usertest3',3,b'1'),
@@ -210,6 +204,29 @@ CREATE TABLE `attend_class_token` (
 -- Xet tham gia lop hoc
 
 CREATE TABLE XetSVThamGiaLopHoc (
+  ID varchar(255) COLLATE utf8_unicode_ci primary key,
   username varchar(64) COLLATE utf8_unicode_ci NOT NULL references account(username),
   MaLopHoc varchar(64) COLLATE utf8_unicode_ci NOT NULL references LopHoc(MaLopHoc)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Đổ dữ liệu
+
+insert into XetSVThamGiaLopHoc values
+('jfjgdshfjgdsjfgjs','usertest2','1ab'),
+('jdshfksfkgdsjfgjs','usertest3','1ab'),
+('iryirhwrhwjkhrwww','usertest4','1ab'),
+('DKFSFjkdhffhfgrrr','usertest5','1ab'),
+('WLUROWNVKHSFHIRUG','usertest6','1ab');
+
+-- -----------------------------------------------------
+
+-- Bang dang bai
+
+CREATE TABLE DangBai (
+  PostID varchar(255) COLLATE utf8_unicode_ci primary key,
+  MaLopHoc varchar(64) COLLATE utf8_unicode_ci NOT NULL references LopHoc(MaLopHoc),
+  username varchar(64) COLLATE utf8_unicode_ci NOT NULL references account(username),
+  NoiDung varchar(500) COLLATE utf8_unicode_ci ,
+  ThoiGian int,
+  DinhKem bit(1) DEFAULT  b'0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

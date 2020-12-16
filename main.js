@@ -64,6 +64,37 @@ window.onload = (event) => {
             $('.student-email').val('');
         });
     });
+    //Vô hiệu hóa nút tham gia
+    $('.join-class').attr("disabled", true);
+    $('.join-class').css( 'cursor', 'not-allowed' );
+    $('#class-code').on('keyup',(e)=>{
+       if($('#class-code').val().length > 2){
+           $('.join-class').attr("disabled", false);
+           $('.join-class').css( 'cursor', 'pointer' );
+       }
+       else{
+           $('.join-class').attr("disabled", true);
+           $('.join-class').css( 'cursor', 'not-allowed' );
+       }
+    });
+    $('.join-class').on('click',(e)=>{
+        e.preventDefault();
+        let classCode = $('#class-code').val();
+        $.post("inc/AcceptStudentFromCode.php", {code: classCode}, function(data){
+            let result = JSON.parse(data).result;
+
+            if(result=="success"){
+                alert("Gửi yêu cầu tham gia lớp học thành công!!!");
+            }
+            else{
+                alert('Gửi yêu cầu thất bại: '+result['reason']);
+            }
+            $('#class-code').val('');
+            $('.join-class').attr("disabled", true);
+            $('.join-class').css( 'cursor', 'not-allowed' );
+        });
+    });
+
 };
 
 (function() {
@@ -234,7 +265,6 @@ $(".btn-send-email-teacher").on("click",function(e){
     let div = span.parent();
     let Class = div.attr('class');
     let ID = getFinalClass(Class);
-    alert(ID);
 
 });
 if ( window.history.replaceState ) {
@@ -246,13 +276,100 @@ $('.btn-delete-class').on('click',()=>{
 $('.accept_remove_class').on('click',()=>{
     $.post("inc/RemoveClass.php", {remove_class: true}, function(data){
         if(data == 1){
-            Redirect();
+            Redirect("Home.php");
         }
         else{
-            alert(data);
+            alert("Xóa lớp học thất bại");
         }
     });
 });
-function Redirect() {
-    window.location="http://localhost/User/Home.php";
+function Redirect(href) {
+    window.location=href;
 }
+
+$(".mr-2 .btn-removing-student").on('click',function (e){
+    let btn = $(this);
+    let span = btn.parent();
+    let div = span.parent();
+    let td = div.parent();
+    let tr = td.parent();
+    let ID = div.attr("id");
+    $.post("inc/ConfirmToAttend.php", {code: ID,action:'delete'}, function(data){
+
+        let result = JSON.parse(data).result;
+        if(result=="success"){
+            alert('Thực hiện thành công');
+            tr.remove();
+        }
+        else{
+            alert('Thực hiện thất bại: '+result);
+        }
+    });
+});
+
+$(".mr-2 .btn-adding-student").on('click',function (e){
+    let btn = $(this);
+    let span = btn.parent();
+    let div = span.parent();
+    let ID = div.attr("id");
+    let td = div.parent();
+    let tr = td.parent();
+    $.post("inc/ConfirmToAttend.php", {code: ID,action:'accept'}, function(data){
+        let result = JSON.parse(data).result;
+        if(result=="success"){
+            alert('Thực hiện thành công');
+            tr.remove();
+        }
+        else{
+            alert('Thực hiện thất bại: '+result);
+        }
+    });
+});
+$(".set-admin-btn").on('click',function (e){
+    let btn = $(this);
+    let td = btn.parent();
+    let ID = td.attr("id");
+    let tr = td.parent();
+    $.post("inc/ChangePermission.php", {username:ID,role:1}, function(data){
+        let result = JSON.parse(data).result;
+        if(result=="success"){
+            alert('Thực hiện thành công');
+            tr.remove();
+        }
+        else{
+            alert('Thực hiện thất bại: '+result);
+        }
+    });
+});
+$(".set-teacher-btn").on('click',function (e){
+    let btn = $(this);
+    let td = btn.parent();
+    let ID = td.attr("id");
+    let tr = td.parent();
+    $.post("inc/ChangePermission.php", {username:ID,role:2}, function(data){
+        let result = JSON.parse(data).result;
+        if(result=="success"){
+            alert('Thực hiện thành công');
+            tr.remove();
+        }
+        else{
+            alert('Thực hiện thất bại: '+result);
+        }
+    });
+});
+$(".set-student-btn").on('click',function (e){
+    let btn = $(this);
+    let td = btn.parent();
+    let ID = td.attr("id");
+    let tr = td.parent();
+    $.post("inc/ChangePermission.php", {username:ID,role:3}, function(data){
+        let result = JSON.parse(data).result;
+        if(result=="success"){
+            alert('Thực hiện thành công');
+            tr.remove();
+        }
+        else{
+            alert('Thực hiện thất bại: '+result);
+        }
+    });
+});

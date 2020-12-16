@@ -11,10 +11,10 @@ if($data['code']===0)
 $Teachers=array();
 $Students=array();
 foreach ($peopleInfor as &$someone) {
-    if($someone['vaitro']===2){
+    if($someone['vaitro']==2){
         array_push($Teachers, $someone);
     }
-    elseif($someone['vaitro']===3){
+    elseif($someone['vaitro']==3){
         array_push($Students, $someone);
     }
 }
@@ -213,6 +213,7 @@ if($_SESSION['ClassRole']!=='student'){
 <?php
 }
 ?>
+
 <?php
 if($_SESSION['ClassRole']!=='student'){
 ?>
@@ -224,7 +225,7 @@ if($_SESSION['ClassRole']!=='student'){
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Thêm sinh viên</h4>
-                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <button type="button" class="close close-add-st-form" data-dismiss="modal">×</button>
                 </div>
 
                 <!-- Moda3 body -->
@@ -237,44 +238,39 @@ if($_SESSION['ClassRole']!=='student'){
                 </div>
                 <div class="modal-body">
                     <h5>Xác nhận sinh viên tham gia lớp học</h5>
+
                     <table class="table">
                         <tbody>
+                        <?php
+                        //Danh sach sinh vien muon tham gia lop hoc bang ma code
+                        $database = new BaseModel();
+                        $sql = "select ID, CONCAT(Ho,' ',Ten) as HoTen ,userIMG from XetSVThamGiaLopHoc inner join account on  XetSVThamGiaLopHoc.username = account.username where XetSVThamGiaLopHoc.MaLopHoc = ? ";
+                        $param = array('s', &$_SESSION['ClassCode']);
+                        $data = $database->query_prepared($sql, $param);
+                        $StudentsAttendClass = array();
+                        if($data['code']===0){
+                            if($data['data']!==array()){
+                                $StudentsAttendClass = $data['data'];
+                            }
+                        }
+                        ?>
+                    <?php
+                    foreach ($StudentsAttendClass as $student){
+                    ?>
                         <tr>
                             <td>
                                 <div class="main1">
                                     <div class="section-img">
-                                        <img src="../Public/img/user.png" alt="img">
+                                        <img src="../<?php echo $student['userIMG'] ?>" alt="img">
                                     </div>
-                                    <h4 class="user-name">Nguyễn Văn Huy</h4>
+                                    <h4 class="user-name"><?php echo $student['HoTen'] ?></h4>
                                 </div>
                             </td>
                             <td>
-                                <div class="btn-group d-flex justify-content-end">
+                                <div class="btn-group d-flex justify-content-center" <?php echo 'id="'.$student['ID'].'"'?>>
                                     <!-- Nút xóa-->
                                     <span class="mr-2">
-                                            <button type="button" class="btn btn-icon btn-light btn-outline-primary btn-remove-people btn-removing-student" data-toggle="modal" data-target="#">
-                                                <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-person-x">
-                                                  <path fill-rule="evenodd" d="M8 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10zm1.146-7.85a.5.5 0 0 1 .708 0L14 6.293l1.146-1.147a.5.5 0 0 1 .708.708L14.707 7l1.147 1.146a.5.5 0 0 1-.708.708L14 7.707l-1.146 1.147a.5.5 0 0 1-.708-.708L13.293 7l-1.147-1.146a.5.5 0 0 1 0-.708z"/>
-                                                </svg>
-                                            </button>
-                                    </span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="main1">
-                                    <div class="section-img">
-                                        <img src="../Public/img/user.png" alt="img">
-                                    </div>
-                                    <h4 class="user-name">Nguyễn Văn Huy</h4>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="btn-group d-flex justify-content-center">
-                                    <!-- Nút xóa-->
-                                    <span class="mr-2">
-                                            <button type="button" class="btn btn-icon btn-light btn-outline-primary btn-remove-people btn-removing-student" data-toggle="modal" data-target="#">
+                                            <button type="button" class="btn btn-icon btn-light btn-outline-primary btn-remove-people btn-removing-student">
                                                 <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-person-dash">
                                                   <path fill-rule="evenodd" d="M8 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10zM11 7.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5z"/>
                                                 </svg>
@@ -282,7 +278,7 @@ if($_SESSION['ClassRole']!=='student'){
                                         </span>
                                     <!-- Nút thêm-->
                                     <span class="mr-2">
-                                            <button type="button" class="btn btn-icon btn-light btn-outline-primary btn-adding-student" data-target="#">
+                                            <button type="button" class="btn btn-icon btn-light btn-outline-primary btn-adding-student">
                                                 <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-person-plus" fill="currentColor">
                                                   <path fill-rule="evenodd" d="M8 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10zM13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
                                                 </svg>
@@ -291,6 +287,10 @@ if($_SESSION['ClassRole']!=='student'){
                                 </div>
                             </td>
                         </tr>
+
+                    <?php
+                    }
+                    ?>
 
                         </tbody>
                     </table>
@@ -327,35 +327,6 @@ if($_SESSION['ClassRole']==='creator' || $_SESSION['role'] === 1){
                         <input type="email" class=" mt-2 form-control teacher-email" placeholder="Nhập Email" name="teacheremail">
                         <button type="submit" id="add-teacher-by-email" class="ml-4 mt-2 btn btn-outline-primary">Thêm</button>
                     </form>
-                </div>
-                <div class="modal-body">
-                    <h5>Xác nhận giáo viên tham gia lớp học</h5>
-                    <table class="table">
-                        <tbody>
-                        <tr>
-                            <td>
-                                <div class="main1">
-                                    <div class="section-img">
-                                        <img src="../Public/img/user.png" alt="img">
-                                    </div>
-                                    <h4 class="user-name">Nguyễn Văn Huy</h4>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="btn-group d-flex justify-content-end">
-                                    <!-- Nút xóa-->
-                                    <span class="mr-2">
-                                            <button type="button" class="btn btn-icon btn-light btn-outline-primary btn-remove-people btn-removing-student" data-toggle="modal" data-target="#">
-                                                <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-person-x">
-                                                  <path fill-rule="evenodd" d="M8 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10zm1.146-7.85a.5.5 0 0 1 .708 0L14 6.293l1.146-1.147a.5.5 0 0 1 .708.708L14.707 7l1.147 1.146a.5.5 0 0 1-.708.708L14 7.707l-1.146 1.147a.5.5 0 0 1-.708-.708L13.293 7l-1.147-1.146a.5.5 0 0 1 0-.708z"/>
-                                                </svg>
-                                            </button>
-                                    </span>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
                 </div>
                 <!-- Modal footer -->
                 <div class="modal-footer">

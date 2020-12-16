@@ -16,7 +16,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- My style -->
     <link rel="stylesheet" href="../style.css">
-    <title>Quên mật khẩu</title>
+    <title>Xác nhận tài khoản</title>
 </head>
 <body class="bg-light">
 <?php

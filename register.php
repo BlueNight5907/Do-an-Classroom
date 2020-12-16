@@ -16,7 +16,7 @@ require_once('vendor/autoload.php');
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- My style -->
     <link rel="stylesheet" href="./style.css">
-    <title>Home</title>
+    <title>Đăng ký</title>
 </head>
 <body class="bg-light">
 <?php
@@ -41,42 +41,57 @@ if(isset($_POST)){
         $pass=$_POST['password'];
         $repass=$_POST['re-password'];
 
-
-
-        $database = new BaseModel();
-        $sql = 'select count(*) from account where username = ? or email = ?';
-        $param = array('ss', &$username,&$email);
-        $data = $database->is_exists($sql, $param);
-
-        if($data===true){
-            $error = "Tài khoản đã tồn tại";
+        // code
+        $year = 2020-(int)substr($ngaysinh, 0, 4);
+        if ($year < 10) {
+            $error = 'Bạn quá nhỏ tuổi để tham gia!';
+        }
+        else if ($pass != $repass) {
+            $error = 'Xác nhận mật khẩ không chính xác!';
+        }
+        else if (strlen($sdt) != 10 || $sdt[0]!= 0) {
+            $error = 'Số điện thoại không chính xác!';
         }
         else{
-            $hash = password_hash($pass,PASSWORD_DEFAULT);
-            $rand = random_int(0 ,1000);
-            $token = md5($username.'+'.$rand);
             $database = new BaseModel();
-            $sql = 'insert into account(Ho,Ten,NgaySinh,email,username,password,activate_token) values(?,?,?,?,?,?,?)';
-            $param = array('sssssss',&$ho,&$ten,&$ngaysinh,&$email,&$username,&$hash,&$token);
-            $data = $database->query_prepared_nonquery($sql, $param);
-            $result = $data['data'];
-            $sql = 'insert into phanquyen values(?,?)';
-            $role = 2;
-            $param = array('si',&$username,&$role);
-            $data = $database->query_prepared_nonquery($sql, $param);
-            if($result!=='success'){
-                $error = "Đã xảy ra lỗi trong quá trình tạo tài khoản, vui lòng thử lại sau";
+            $sql = 'select count(*) from account where username = ? or email = ?';
+            $param = array('ss', &$username,&$email);
+            $data = $database->is_exists($sql, $param);
+
+            if($data===true){
+                $error = "Tài khoản đã tồn tại";
             }
             else{
-                unset($_POST);
-                $db = new BaseModel();
-                $result = $db->send_activation_email($email,$token);
+                $hash = password_hash($pass,PASSWORD_DEFAULT);
+                $rand = random_int(0 ,1000);
+                $token = md5($username.'+'.$rand);
+                $database = new BaseModel();
+                $sql = 'insert into account(Ho,Ten,NgaySinh,email,username,password,activate_token) values(?,?,?,?,?,?,?)';
+                $param = array('sssssss',&$ho,&$ten,&$ngaysinh,&$email,&$username,&$hash,&$token);
+                $data = $database->query_prepared_nonquery($sql, $param);
+                $result = $data['data'];
+                $sql = 'insert into phanquyen values(?,?)';
+                $role = 3;
+                $param = array('si',&$username,&$role);
+                $data = $database->query_prepared_nonquery($sql, $param);
+                if($result!=='success'){
+                    $error = "Đã xảy ra lỗi trong quá trình tạo tài khoản, vui lòng thử lại sau";
+                }
+                else{
+                    unset($_POST);
+                    $db = new BaseModel();
+                    $result = $db->send_activation_email($email,$token);
+                }
+            }
+            if(empty($error)){
+                header('Location: ReturnLogin.html');
+                die();
             }
         }
-        if(empty($error)){
-            header('Location: ReturnLogin.html');
-            die();
-        }
+        
+        // if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        //     $error = "Email không hợp lệ";
+        // }        
     }
 }
 
@@ -140,14 +155,11 @@ if(isset($_POST)){
                         <div class="valid-feedback"></div>
                         <div class="invalid-feedback">Bạn chưa xác nhập lại mật khẩu</div>
                     </div>
-                    <?php if($error !=='')
-                    {
-                    ?>
-                    <div class="alert alert-danger" role="alert">
-                        <?php echo $error ?>
-                    </div>
-                    <?php
-                    }
+                    <?php 
+                    if($error !=='')
+                        {
+                        echo "<div class='alert alert-danger alert-dismissible fade show'>$error</div>";
+                        }
                     ?>
                     <p class="form-notice">Sử dụng 8 kí tự trở lên và kết hợp các chữ cái, chữ số và biểu tượng.</p>
                     <div class="auth-form-controls">

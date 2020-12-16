@@ -16,7 +16,7 @@ require_once('vendor/autoload.php');
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- My style -->
     <link rel="stylesheet" href="./style.css">
-    <title>Home</title>
+    <title>Đăng nhập</title>
 </head>
 <?php
 

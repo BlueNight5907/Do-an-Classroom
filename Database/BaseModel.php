@@ -203,7 +203,6 @@
                 return array('code'=>2,'error'=>'Không thể thêm người dùng');
             }
 
-            print_r($data);
             ////Thêm trường hợp cần gửi thư mời vào bảng
             $token = md5($email.'+'.random_int(1000,2000));
             $sql = 'update attend_class_token set token = ? where username = ?';
@@ -327,13 +326,12 @@
             }
             $result = $stm->get_result();
             $data = $result->fetch_assoc();
-            if($data == array()){
+            if($data != array()){
                 return array('code'=>1,'error'=>'Người dùng đã tồn tại trong lớp học');
             }
 
 
             //Kiem tra xem sinh vien da gui yeu cau tham gia lop hoc chua neu chua thi tao moi
-            $token = md5($username.'+'.random_int(1000,2000));
             $sql = 'select * from xetsvthamgialophoc where username = ? and MaLopHoc = ?';
             $stm = $this->db->prepare($sql);
             $stm->bind_param('ss',$username,$classID);
@@ -343,9 +341,10 @@
             $result = $stm->get_result();
             $data = $result->fetch_assoc();
             if($data == array()){
-                $sql = 'insert into xetsvthamgialophoc values(?,?)';
+                $ID = $this->generateRandomString();
+                $sql = 'insert into xetsvthamgialophoc values(?,?,?)';
                 $stm = $this->db->prepare($sql);
-                $stm->bind_param('ss',$username,$classID);
+                $stm->bind_param('sss',$ID,$username,$classID);
                 if(!$stm->execute()){
                     return array('code'=>2,'error'=>'Can not execute command');
                 }
@@ -357,7 +356,52 @@
             else
                 return array('code'=>2,'error'=>'Can not send email');
         }
-
+        //Xac nhan de sinh vien tham gia lop bang code
+        function confirm_student_attend($ID,$action){
+            $sql = 'select username,MaLopHoc from xetsvthamgialophoc where ID = ?';
+            $stm = $this->db->prepare($sql);
+            $stm->bind_param('s',$ID);
+            if(!$stm->execute()){
+                return array('code'=>2,'error'=>'Can not execute command');
+            }
+            $result = $stm->get_result();
+            $data = $result->fetch_assoc();
+            $username = $data['username'];
+            $classID = $data['MaLopHoc'];
+            if($action === 'accept'){
+                $JoinID = $this->generateRandomString();
+                $role = 3;
+                $sql = "insert into thamgialophoc values(?,?,?,?,b'1')";
+                $stm = $this->db->prepare($sql);
+                $stm->bind_param('sssi',$JoinID,$classID,$username,$role);
+                if(!$stm->execute()){
+                    return array('code'=>2,'error'=>'Can not execute command');
+                }
+            }
+            //Xoa sinh vien do khoi bang xetsvthamgialophoc
+            $sql = "delete from xetsvthamgialophoc where ID = ?";
+            $stm = $this->db->prepare($sql);
+            $stm->bind_param('s',$ID);
+            if(!$stm->execute()){
+                return array('code'=>2,'error'=>'Can not execute command');
+            }
+            else
+                return array('code'=>0,'success'=>'All success');
+        }
+        //Thay đổi vai trò người dùng
+        function change_permission($username,$role){
+            $sql = 'update phanquyen set vaitro = ? where username = ?';
+            $stm = $this->db->prepare($sql);
+            $stm->bind_param('is',$role,$username);
+            if(!$stm->execute()){
+                return array('code'=>2,'error'=>'Can not execute command');
+            }
+            else if($stm->affected_rows == 0){
+                print_r($stm);
+                return array('code'=>1,'error'=>'Người dùng đã được phân quyền rồi');
+            }
+            return array('code'=>0,'success'=>'All success');
+        }
         //Hàm để reset pass
         function reset_password($email){
             if(!$this->is_email_exists($email)){
@@ -517,5 +561,136 @@
                 return false;
             }
         }
+        function get_all_user(){
+            $sql = "select userIMG, CONCAT(Ho,' ',Ten) as HoTen, account.username , email, vaitro from account inner join phanquyen on account.username = phanquyen.username";
+            return $this->query($sql);
+        }
+        function classAnounce($username,$classCode){
+            $sql = 'select email from account where username = ?';
+            $stm = $this->db->prepare($sql);
+            $stm->bind_param('s',$username);
+            if(!$stm->execute()){
+                return array('code'=>2,'error'=>'Can not execute command');
+            }
+            $data = $stm->get_result()->fetch_assoc();
+            $email = $data['email'];
+            $sql = 'select TenLopHoc from lophoc where MaLopHoc = ?';
+            $stm = $this->db->prepare($sql);
+            $stm->bind_param('s',$classCode);
+            if(!$stm->execute()){
+                return array('code'=>2,'error'=>'Can not execute command');
+            }
+            $data = $stm->get_result()->fetch_assoc();
+            $className = $data['TenLopHoc'];
+            $this->announce_cofirm_attend_class_email($email,$className);
+
+        }
+        function permissionAnounce($username){
+            $sql = 'select email,vaitro from account inner join phanquyen on account.username = phanquyen.username where account.username = ?';
+            $stm = $this->db->prepare($sql);
+            $stm->bind_param('s',$username);
+            if(!$stm->execute()){
+                return array('code'=>2,'error'=>'Can not execute command');
+            }
+            $data = $stm->get_result()->fetch_assoc();
+            $email = $data['email'];
+            $role = "Admin";
+            if($data['vaitro']==2){
+                $role = "Giáo viên";
+            }else if($data['vaitro']==3){
+                $role = "Học sinh";
+            }
+            $this->announce_change_permission_email($email,$role);
+
+        }
+        function announce_change_permission_email($email,$role){
+
+            $mail = new PHPMailer(true);
+
+            try {
+                //Server settings
+                $mail->SMTPDebug = 0; //0 = off (for production use, No debug messages) debugging: 1 = errors and messages, 2 = messages only
+                //$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+                $mail->isSMTP();
+                $mail->CharSet = "UTF-8"; // Send using SMTP
+                $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
+                $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+                $mail->Username   = 'webprojectclassroom@gmail.com';                     // SMTP username
+                $mail->Password   = 'tepnkvzgwljzcayy';                               // SMTP password
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+                $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+
+                //Recipients
+                $mail->setFrom('webprojectclassroom@gmail.com', 'Hệ thống');
+                $mail->addAddress($email, 'Người nhận');     // Add a recipient
+                /*
+                $mail->addAddress('ellen@example.com');               // Name is optional
+                $mail->addReplyTo('info@example.com', 'Information');
+                $mail->addCC('cc@example.com');
+                $mail->addBCC('bcc@example.com');
+                */
+
+                // Attachments
+                //$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+                //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+
+                // Content
+                $mail->isHTML(true);                                  // Set email format to HTML
+                $mail->Subject = 'Thông báo thay đổi vai trò của tài khoản';
+                $mail->Body    = "Bạn đã được thay đổi vai trò thành <span style='color:red'>$role</span>";
+                //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+                $mail->send();
+
+                return true;
+            } catch (Exception $e) {
+                return false;
+            }
+        }
+        function announce_cofirm_attend_class_email($email,$className){
+
+            $mail = new PHPMailer(true);
+
+            try {
+                //Server settings
+                $mail->SMTPDebug = 0; //0 = off (for production use, No debug messages) debugging: 1 = errors and messages, 2 = messages only
+                //$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+                $mail->isSMTP();
+                $mail->CharSet = "UTF-8"; // Send using SMTP
+                $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
+                $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+                $mail->Username   = 'webprojectclassroom@gmail.com';                     // SMTP username
+                $mail->Password   = 'tepnkvzgwljzcayy';                               // SMTP password
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+                $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+
+                //Recipients
+                $mail->setFrom('webprojectclassroom@gmail.com', 'Hệ thống');
+                $mail->addAddress($email, 'Người nhận');     // Add a recipient
+                /*
+                $mail->addAddress('ellen@example.com');               // Name is optional
+                $mail->addReplyTo('info@example.com', 'Information');
+                $mail->addCC('cc@example.com');
+                $mail->addBCC('bcc@example.com');
+                */
+
+                // Attachments
+                //$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+                //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+
+                // Content
+                $mail->isHTML(true);                                  // Set email format to HTML
+                $mail->Subject = 'Thông báo';
+                $mail->Body    = "Bạn được xác nhận tham gia lớp học <span style='color:red'>$className</span>";
+                //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+                $mail->send();
+
+                return true;
+            } catch (Exception $e) {
+                return false;
+            }
+        }
+
 
     }
